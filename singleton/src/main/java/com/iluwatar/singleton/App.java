@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,31 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.singleton;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>Singleton pattern ensures that the class can have only one existing instance per Java
  * classloader instance and provides global access to it.</p>
  *
  * <p>One of the risks of this pattern is that bugs resulting from setting a singleton up in a
- * distributed environment can be tricky to debug, since it will work fine if you debug with a
+ * distributed environment can be tricky to debug since it will work fine if you debug with a
  * single classloader. Additionally, these problems can crop up a while after the implementation of
- * a singleton, since they may start out synchronous and only become async with time, so it may
- * not be clear why you are seeing certain changes in behaviour.</p>
+ * a singleton, since they may start synchronous and only become async with time, so it may
+ * not be clear why you are seeing certain changes in behavior.</p>
  *
  * <p>There are many ways to implement the Singleton. The first one is the eagerly initialized
  * instance in {@link IvoryTower}. Eager initialization implies that the implementation is thread
- * safe. If you can afford giving up control of the instantiation moment, then this implementation
+ * safe. If you can afford to give up control of the instantiation moment, then this implementation
  * will suit you fine.</p>
  *
- * <p>The other option to implement eagerly initialized Singleton is enum based Singleton. The
- * example is found in {@link EnumIvoryTower}. At first glance the code looks short and simple.
+ * <p>The other option to implement eagerly initialized Singleton is enum-based Singleton. The
+ * example is found in {@link EnumIvoryTower}. At first glance, the code looks short and simple.
  * However, you should be aware of the downsides including committing to implementation strategy,
- * extending the enum class, serializability and restrictions to coding. These are extensively
+ * extending the enum class, serializability, and restrictions to coding. These are extensively
  * discussed in Stack Overflow: http://programmers.stackexchange.com/questions/179386/what-are-the-downsides-of-implementing
  * -a-singleton-with-javas-enum</p>
  *
@@ -57,13 +57,12 @@ import org.slf4j.LoggerFactory;
  * ThreadSafeLazyLoadedIvoryTower} since it doesn't synchronize the whole access method but only the
  * method internals on specific conditions.</p>
  *
- * <p>Yet another way to implement thread safe lazily initialized Singleton can be found in
+ * <p>Yet another way to implement thread-safe lazily initialized Singleton can be found in
  * {@link InitializingOnDemandHolderIdiom}. However, this implementation requires at least Java 8
  * API level to work.</p>
  */
+@Slf4j
 public class App {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   /**
    * Program entry point.
@@ -101,5 +100,11 @@ public class App {
     LOGGER.info(demandHolderIdiom.toString());
     var demandHolderIdiom2 = InitializingOnDemandHolderIdiom.getInstance();
     LOGGER.info(demandHolderIdiom2.toString());
+
+    // initialize singleton using Bill Pugh's implementation
+    var billPughSingleton = BillPughImplementation.getInstance();
+    LOGGER.info(billPughSingleton.toString());
+    var billPughSingleton2 = BillPughImplementation.getInstance();
+    LOGGER.info(billPughSingleton2.toString());
   }
 }

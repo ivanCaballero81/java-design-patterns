@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.masterworker;
 
-import java.util.Random;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.security.SecureRandom;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class ArrayUtilityMethods has some utility methods for matrices and arrays.
  */
 
+@Slf4j
 public class ArrayUtilityMethods {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ArrayUtilityMethods.class);
-
-  private static final Random RANDOM = new Random();
+  private static final SecureRandom RANDOM = new SecureRandom();
 
   /**
    * Method arraysSame compares 2 arrays @param a1 and @param a2 and @return whether their values

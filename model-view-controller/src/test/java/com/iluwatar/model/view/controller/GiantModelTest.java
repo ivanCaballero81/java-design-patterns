@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.model.view.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,13 +33,13 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class GiantModelTest {
+class GiantModelTest {
 
   /**
    * Verify if the health value is set properly though the constructor and setter
    */
   @Test
-  public void testSetHealth() {
+  void testSetHealth() {
     final var model = new GiantModel(Health.HEALTHY, Fatigue.ALERT, Nourishment.SATURATED);
     assertEquals(Health.HEALTHY, model.getHealth());
     var messageFormat = "The giant looks %s, alert and saturated.";
@@ -53,7 +54,7 @@ public class GiantModelTest {
    * Verify if the fatigue level is set properly though the constructor and setter
    */
   @Test
-  public void testSetFatigue() {
+  void testSetFatigue() {
     final var model = new GiantModel(Health.HEALTHY, Fatigue.ALERT, Nourishment.SATURATED);
     assertEquals(Fatigue.ALERT, model.getFatigue());
     var messageFormat = "The giant looks healthy, %s and saturated.";
@@ -68,7 +69,7 @@ public class GiantModelTest {
    * Verify if the nourishment level is set properly though the constructor and setter
    */
   @Test
-  public void testSetNourishment() {
+  void testSetNourishment() {
     final var model = new GiantModel(Health.HEALTHY, Fatigue.ALERT, Nourishment.SATURATED);
     assertEquals(Nourishment.SATURATED, model.getNourishment());
     var messageFormat = "The giant looks healthy, alert and %s.";

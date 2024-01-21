@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.twin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,22 +46,22 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jeroen Meulemeester
  */
-public class BallItemTest {
+class BallItemTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
   @Test
-  public void testClick() {
+  void testClick() {
     final var ballThread = mock(BallThread.class);
     final var ballItem = new BallItem();
     ballItem.setTwin(ballThread);
@@ -78,7 +79,7 @@ public class BallItemTest {
   }
 
   @Test
-  public void testDoDraw() {
+  void testDoDraw() {
     final var ballItem = new BallItem();
     final var ballThread = mock(BallThread.class);
     ballItem.setTwin(ballThread);
@@ -92,7 +93,7 @@ public class BallItemTest {
   }
 
   @Test
-  public void testMove() {
+  void testMove() {
     final var ballItem = new BallItem();
     final var ballThread = mock(BallThread.class);
     ballItem.setTwin(ballThread);
@@ -107,7 +108,7 @@ public class BallItemTest {
   /**
    * Logging Appender Implementation
    */
-  public class InMemoryAppender extends AppenderBase<ILoggingEvent> {
+  class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private final List<ILoggingEvent> log = new LinkedList<>();
 
     public InMemoryAppender() {

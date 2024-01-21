@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.nullobject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,17 +44,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jeroen Meulemeester
  */
-public class TreeTest {
+class TreeTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
@@ -88,7 +89,7 @@ public class TreeTest {
    * Node#getTreeSize()} of 7 {@link Node}s in total.
    */
   @Test
-  public void testTreeSize() {
+  void testTreeSize() {
     assertEquals(7, TREE_ROOT.getTreeSize());
   }
 
@@ -96,7 +97,7 @@ public class TreeTest {
    * Walk through the tree and verify if every item is handled
    */
   @Test
-  public void testWalk() {
+  void testWalk() {
     TREE_ROOT.walk();
 
     assertTrue(appender.logContains("root"));
@@ -110,7 +111,7 @@ public class TreeTest {
   }
 
   @Test
-  public void testGetLeft() {
+  void testGetLeft() {
     final var level1 = TREE_ROOT.getLeft();
     assertNotNull(level1);
     assertEquals("level1_a", level1.getName());
@@ -130,7 +131,7 @@ public class TreeTest {
   }
 
   @Test
-  public void testGetRight() {
+  void testGetRight() {
     final var level1 = TREE_ROOT.getRight();
     assertNotNull(level1);
     assertEquals("level1_b", level1.getName());

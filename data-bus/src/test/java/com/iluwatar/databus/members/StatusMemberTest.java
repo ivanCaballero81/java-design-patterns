@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.databus.members;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,10 +40,10 @@ import org.junit.jupiter.api.Test;
  *
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
-public class StatusMemberTest {
+class StatusMemberTest {
 
   @Test
-  public void statusRecordsTheStartTime() {
+  void statusRecordsTheStartTime() {
     //given
     final var startTime = LocalDateTime.of(2017, Month.APRIL, 1, 19, 9);
     final var startingData = new StartingData(startTime);
@@ -54,7 +55,7 @@ public class StatusMemberTest {
   }
 
   @Test
-  public void statusRecordsTheStopTime() {
+  void statusRecordsTheStopTime() {
     //given
     final var stop = LocalDateTime.of(2017, Month.APRIL, 1, 19, 12);
     final var stoppingData = new StoppingData(stop);
@@ -67,7 +68,7 @@ public class StatusMemberTest {
   }
 
   @Test
-  public void statusIgnoresMessageData() {
+  void statusIgnoresMessageData() {
     //given
     final var messageData = new MessageData("message");
     final var statusMember = new StatusMember(1);

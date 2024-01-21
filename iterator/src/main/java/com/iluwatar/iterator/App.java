@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.iterator;
 
 import static com.iluwatar.iterator.list.ItemType.ANY;
@@ -32,8 +33,7 @@ import com.iluwatar.iterator.bst.BstIterator;
 import com.iluwatar.iterator.bst.TreeNode;
 import com.iluwatar.iterator.list.ItemType;
 import com.iluwatar.iterator.list.TreasureChest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Iterator pattern is a design pattern in which an iterator is used to traverse a container and
@@ -43,9 +43,8 @@ import org.slf4j.LoggerFactory;
  * ({@link TreasureChest}). This way the collection can change its internal implementation without
  * affecting its clients.
  */
+@Slf4j
 public class App {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   private static final TreasureChest TREASURE_CHEST = new TreasureChest();
 

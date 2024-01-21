@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Ambassador
-folder: ambassador
-permalink: /patterns/ambassador/
-categories: Structural
-tags:
+category: Structural
+language: en
+tag:
   - Decoupling
   - Cloud distributed
 ---
@@ -48,9 +46,8 @@ interface RemoteServiceInterface {
 A remote services represented as a singleton.
 
 ```java
+@Slf4j
 public class RemoteService implements RemoteServiceInterface {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RemoteService.class);
     private static RemoteService service = null;
 
     static synchronized RemoteService getRemoteService() {
@@ -80,9 +77,8 @@ public class RemoteService implements RemoteServiceInterface {
 A service ambassador adding additional features such as logging, latency checks
 
 ```java
+@Slf4j
 public class ServiceAmbassador implements RemoteServiceInterface {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAmbassador.class);
   private static final int RETRIES = 3;
   private static final int DELAY_MS = 3000;
 
@@ -132,9 +128,8 @@ public class ServiceAmbassador implements RemoteServiceInterface {
 A client has a local service ambassador used to interact with the remote service:
 
 ```java
+@Slf4j
 public class Client {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
   private final ServiceAmbassador serviceAmbassador = new ServiceAmbassador();
 
   long useService(int value) {
@@ -204,4 +199,4 @@ service.
 ## Credits
 
 * [Ambassador pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador)
-* [Designing Distributed Systems: Patterns and Paradigms for Scalable, Reliable Services](https://books.google.co.uk/books?id=6BJNDwAAQBAJ&pg=PT35&lpg=PT35&dq=ambassador+pattern+in+real+world&source=bl&ots=d2e7GhYdHi&sig=Lfl_MDnCgn6lUcjzOg4GXrN13bQ&hl=en&sa=X&ved=0ahUKEwjk9L_18rrbAhVpKcAKHX_KA7EQ6AEIWTAI#v=onepage&q=ambassador%20pattern%20in%20real%20world&f=false)
+* [Designing Distributed Systems: Patterns and Paradigms for Scalable, Reliable Services](https://www.amazon.com/s?k=designing+distributed+systems&sprefix=designing+distri%2Caps%2C156&linkCode=ll2&tag=javadesignpat-20&linkId=a12581e625462f9038557b01794e5341&language=en_US&ref_=as_li_ss_tl)

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,37 +22,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.business.delegate;
+
+import java.util.Locale;
+import lombok.Setter;
 
 /**
  * Class for performing service lookups.
  */
+@Setter
 public class BusinessLookup {
 
-  private EjbService ejbService;
+  private NetflixService netflixService;
 
-  private JmsService jmsService;
+  private YouTubeService youTubeService;
 
   /**
-   * Gets service instance based on service type.
+   * Gets service instance based on given movie search string.
    *
-   * @param serviceType Type of service instance to be returned.
+   * @param movie Search string for the movie.
    * @return Service instance.
    */
-  public BusinessService getBusinessService(ServiceType serviceType) {
-    if (serviceType.equals(ServiceType.EJB)) {
-      return ejbService;
+  public VideoStreamingService getBusinessService(String movie) {
+    if (movie.toLowerCase(Locale.ROOT).contains("die hard")) {
+      return netflixService;
     } else {
-      return jmsService;
+      return youTubeService;
     }
-  }
-
-  public void setJmsService(JmsService jmsService) {
-    this.jmsService = jmsService;
-  }
-
-  public void setEjbService(EjbService ejbService) {
-    this.ejbService = ejbService;
   }
 }

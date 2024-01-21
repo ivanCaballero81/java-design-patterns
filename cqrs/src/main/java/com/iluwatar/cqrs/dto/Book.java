@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,61 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.cqrs.dto;
 
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * This is a DTO (Data Transfer Object) book, contains only useful information to be returned.
  */
+@ToString
+@EqualsAndHashCode
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
 
   private String title;
   private double price;
-
-  /**
-   * Constructor.
-   *
-   * @param title title of the book
-   * @param price price of the book
-   */
-  public Book(String title, double price) {
-    this.title = title;
-    this.price = price;
-  }
-
-  public Book() {
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public double getPrice() {
-    return price;
-  }
-
-  @Override
-  public String toString() {
-    return "BookDTO [title=" + title + ", price=" + price + "]";
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, price);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (!(obj instanceof Book)) {
-      return false;
-    }
-    var book = (Book) obj;
-    return title.equals(book.getTitle()) && price == book.getPrice();
-  }
 
 }

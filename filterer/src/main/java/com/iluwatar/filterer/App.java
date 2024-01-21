@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.filterer;
 
 import com.iluwatar.filterer.threat.ProbableThreat;
@@ -31,12 +32,9 @@ import com.iluwatar.filterer.threat.SimpleThreatAwareSystem;
 import com.iluwatar.filterer.threat.Threat;
 import com.iluwatar.filterer.threat.ThreatAwareSystem;
 import com.iluwatar.filterer.threat.ThreatType;
-
 import java.util.List;
 import java.util.function.Predicate;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This demo class represent how {@link com.iluwatar.filterer.domain.Filterer} pattern is used to
@@ -46,9 +44,8 @@ import org.slf4j.LoggerFactory;
  * The thing is to keep it simple if we add new subtype of {@link Threat}
  * (for example {@link ProbableThreat}) - we still need to be able to filter by it's properties.
  */
+@Slf4j
 public class App {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   public static void main(String[] args) {
     filteringSimpleThreats();
@@ -62,7 +59,7 @@ public class App {
    * as predicate argument.
    */
   private static void filteringSimpleProbableThreats() {
-    LOGGER.info(" ### Filtering ProbabilisticThreatAwareSystem by probability ###");
+    LOGGER.info("### Filtering ProbabilisticThreatAwareSystem by probability ###");
 
     var trojanArcBomb = new SimpleProbableThreat("Trojan-ArcBomb", 1, ThreatType.TROJAN, 0.99);
     var rootkit = new SimpleProbableThreat("Rootkit-Kernel", 2, ThreatType.ROOTKIT, 0.8);
@@ -70,14 +67,14 @@ public class App {
     List<ProbableThreat> probableThreats = List.of(trojanArcBomb, rootkit);
 
     var probabilisticThreatAwareSystem =
-            new SimpleProbabilisticThreatAwareSystem("Sys-1", probableThreats);
+        new SimpleProbabilisticThreatAwareSystem("Sys-1", probableThreats);
 
     LOGGER.info("Filtering ProbabilisticThreatAwareSystem. Initial : "
-            + probabilisticThreatAwareSystem);
+        + probabilisticThreatAwareSystem);
 
     //Filtering using filterer
     var filteredThreatAwareSystem = probabilisticThreatAwareSystem.filtered()
-            .by(probableThreat -> Double.compare(probableThreat.probability(), 0.99) == 0);
+        .by(probableThreat -> Double.compare(probableThreat.probability(), 0.99) == 0);
 
     LOGGER.info("Filtered by probability = 0.99 : " + filteredThreatAwareSystem);
   }
@@ -100,7 +97,7 @@ public class App {
 
     //Filtering using Filterer
     var rootkitThreatAwareSystem = threatAwareSystem.filtered()
-            .by(threat -> threat.type() == ThreatType.ROOTKIT);
+        .by(threat -> threat.type() == ThreatType.ROOTKIT);
 
     LOGGER.info("Filtered by threatType = ROOTKIT : " + rootkitThreatAwareSystem);
   }

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,9 +31,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Module pattern can be considered a Creational pattern and a Structural pattern. It manages
@@ -44,9 +44,8 @@ import org.slf4j.LoggerFactory;
  * The below example demonstrates a JUnit test for testing two different modules: File Logger and
  * Console Logger
  */
+@Slf4j
 public final class FileLoggerModuleTest {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(FileLoggerModuleTest.class);
 
   private static final String OUTPUT_FILE = "output.txt";
   private static final String ERROR_FILE = "error.txt";
@@ -61,7 +60,7 @@ public final class FileLoggerModuleTest {
    * @throws IOException if program is not able to find log files (output.txt and error.txt)
    */
   @Test
-  public void testFileMessage() throws IOException {
+  void testFileMessage() throws IOException {
 
     /* Get singleton instance of File Logger Module */
     final var fileLoggerModule = FileLoggerModule.getSingleton();
@@ -85,7 +84,7 @@ public final class FileLoggerModuleTest {
    * @throws IOException if program is not able to find log files (output.txt and error.txt)
    */
   @Test
-  public void testNoFileMessage() throws IOException {
+  void testNoFileMessage() throws IOException {
 
     /* Get singleton instance of File Logger Module */
     final var fileLoggerModule = FileLoggerModule.getSingleton();
@@ -107,7 +106,7 @@ public final class FileLoggerModuleTest {
    *                               error.txt)
    */
   @Test
-  public void testFileErrorMessage() throws FileNotFoundException {
+  void testFileErrorMessage() throws FileNotFoundException {
 
     /* Get singleton instance of File Logger Module */
     final var fileLoggerModule = FileLoggerModule.getSingleton();
@@ -132,7 +131,7 @@ public final class FileLoggerModuleTest {
    *                               error.txt)
    */
   @Test
-  public void testNoFileErrorMessage() throws FileNotFoundException {
+  void testNoFileErrorMessage() throws FileNotFoundException {
 
     /* Get singleton instance of File Logger Module */
     final var fileLoggerModule = FileLoggerModule.getSingleton();

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.servicelocator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,13 +38,13 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class ServiceLocatorTest {
+class ServiceLocatorTest {
 
   /**
    * Verify if we just receive 'null' when requesting a non-existing service
    */
   @Test
-  public void testGetNonExistentService() {
+  void testGetNonExistentService() {
     assertNull(ServiceLocator.getService("fantastic/unicorn/service"));
     assertNull(ServiceLocator.getService("another/fantastic/unicorn/service"));
   }
@@ -52,7 +53,7 @@ public class ServiceLocatorTest {
    * Verify if we get the same cached instance when requesting the same service twice
    */
   @Test
-  public void testServiceCache() {
+  void testServiceCache() {
     final var serviceNames = List.of("jndi/serviceA", "jndi/serviceB");
 
     for (final var serviceName : serviceNames) {

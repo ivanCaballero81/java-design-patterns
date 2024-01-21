@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.databus.data;
 
 import com.iluwatar.databus.AbstractDataType;
 import com.iluwatar.databus.DataType;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * An event raised when applications stops, containing the stop time of the application.
  *
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
+@RequiredArgsConstructor
+@Getter
 public class StoppingData extends AbstractDataType {
 
   private final LocalDateTime when;
-
-  public StoppingData(LocalDateTime when) {
-    this.when = when;
-  }
-
-  public LocalDateTime getWhen() {
-    return when;
-  }
 
   public static DataType of(final LocalDateTime when) {
     return new StoppingData(when);

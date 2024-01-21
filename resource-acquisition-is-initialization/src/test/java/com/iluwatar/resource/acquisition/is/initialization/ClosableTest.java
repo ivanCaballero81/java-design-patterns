@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.resource.acquisition.is.initialization;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,22 +41,22 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jeroen Meulemeester
  */
-public class ClosableTest {
+class ClosableTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
   @Test
-  public void testOpenClose() {
+  void testOpenClose() {
     try (final var ignored = new SlidingDoor(); final var ignored1 = new TreasureChest()) {
       assertTrue(appender.logContains("Sliding door opens."));
       assertTrue(appender.logContains("Treasure chest opens."));
@@ -67,7 +68,7 @@ public class ClosableTest {
   /**
    * Logging Appender Implementation
    */
-  public class InMemoryAppender extends AppenderBase<ILoggingEvent> {
+  class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private final List<ILoggingEvent> log = new LinkedList<>();
 
     public InMemoryAppender() {

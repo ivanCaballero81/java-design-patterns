@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.prototype;
+
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 /**
  * OrcBeast.
  */
+@EqualsAndHashCode(callSuper = false)
+@RequiredArgsConstructor
 public class OrcBeast extends Beast {
 
   private final String weapon;
-
-  public OrcBeast(String weapon) {
-    this.weapon = weapon;
-  }
 
   public OrcBeast(OrcBeast orcBeast) {
     super(orcBeast);
@@ -40,32 +42,8 @@ public class OrcBeast extends Beast {
   }
 
   @Override
-  public OrcBeast copy() {
-    return new OrcBeast(this);
-  }
-
-  @Override
   public String toString() {
     return "Orcish wolf attacks with " + weapon;
   }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (!super.equals(obj)) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    var other = (OrcBeast) obj;
-    if (weapon == null) {
-      return other.weapon == null;
-    }
-    return weapon.equals(other.weapon);
-  }
-
 
 }

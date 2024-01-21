@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,52 +22,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.gameloop;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * GameLoop unit test class.
  */
-public class GameLoopTest {
+class GameLoopTest {
 
   private GameLoop gameLoop;
 
   /**
    * Create mock implementation of GameLoop.
    */
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
     gameLoop = new GameLoop() {
       @Override
-      protected void processGameLoop() {}
+      protected void processGameLoop() {
+      }
     };
   }
 
-  @After
-  public void tearDown() {
+  @AfterEach
+  void tearDown() {
     gameLoop = null;
   }
 
   @Test
-  public void testRun() {
+  void testRun() {
     gameLoop.run();
-    Assert.assertEquals(GameStatus.RUNNING, gameLoop.status);
+    Assertions.assertEquals(GameStatus.RUNNING, gameLoop.status);
   }
 
   @Test
-  public void testStop() {
+  void testStop() {
     gameLoop.stop();
-    Assert.assertEquals(GameStatus.STOPPED, gameLoop.status);
+    Assertions.assertEquals(GameStatus.STOPPED, gameLoop.status);
   }
 
   @Test
-  public void testIsGameRunning() {
-    Assert.assertFalse(gameLoop.isGameRunning());
+  void testIsGameRunning() {
+    assertFalse(gameLoop.isGameRunning());
   }
-
 }

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.delegation.simple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,24 +42,24 @@ import org.slf4j.LoggerFactory;
 /**
  * Test for Delegation Pattern
  */
-public class DelegateTest {
+class DelegateTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
   private static final String MESSAGE = "Test Message Printed";
 
   @Test
-  public void testCanonPrinter() throws Exception {
+  void testCanonPrinter() throws Exception {
     var printerController = new PrinterController(new CanonPrinter());
     printerController.print(MESSAGE);
 
@@ -66,7 +67,7 @@ public class DelegateTest {
   }
 
   @Test
-  public void testHpPrinter() throws Exception {
+  void testHpPrinter() throws Exception {
     var printerController = new PrinterController(new HpPrinter());
     printerController.print(MESSAGE);
 
@@ -74,7 +75,7 @@ public class DelegateTest {
   }
 
   @Test
-  public void testEpsonPrinter() throws Exception {
+  void testEpsonPrinter() throws Exception {
     var printerController = new PrinterController(new EpsonPrinter());
     printerController.print(MESSAGE);
 
@@ -84,7 +85,7 @@ public class DelegateTest {
   /**
    * Logging Appender
    */
-  private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
+  private static class InMemoryAppender extends AppenderBase<ILoggingEvent> {
 
     private final List<ILoggingEvent> log = new LinkedList<>();
 

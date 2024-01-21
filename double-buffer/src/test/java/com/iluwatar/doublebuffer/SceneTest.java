@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,20 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.doublebuffer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Scene unit tests.
  */
-public class SceneTest {
+class SceneTest {
 
   @Test
-  public void testGetBuffer() {
+  void testGetBuffer() {
     try {
       var scene = new Scene();
       var field1 = Scene.class.getDeclaredField("current");
@@ -46,14 +49,14 @@ public class SceneTest {
       var field2 = Scene.class.getDeclaredField("frameBuffers");
       field2.setAccessible(true);
       field2.set(scene, frameBuffers);
-      Assert.assertEquals(frameBuffer, scene.getBuffer());
+      assertEquals(frameBuffer, scene.getBuffer());
     } catch (NoSuchFieldException | IllegalAccessException e) {
-      Assert.fail("Fail to access private field.");
+      fail("Fail to access private field.");
     }
   }
 
   @Test
-  public void testDraw() {
+  void testDraw() {
     try {
       var scene = new Scene();
       var field1 = Scene.class.getDeclaredField("current");
@@ -63,10 +66,10 @@ public class SceneTest {
       field2.setAccessible(true);
       field2.set(scene, 1);
       scene.draw(new ArrayList<>());
-      Assert.assertEquals(1, field1.get(scene));
-      Assert.assertEquals(0, field2.get(scene));
+      assertEquals(1, field1.get(scene));
+      assertEquals(0, field2.get(scene));
     } catch (NoSuchFieldException | IllegalAccessException e) {
-      Assert.fail("Fail to access private field");
+      fail("Fail to access private field");
     }
   }
 }

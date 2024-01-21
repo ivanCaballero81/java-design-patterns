@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,13 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.spatialpartition;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,7 +42,7 @@ class SpatialPartitionBubblesTest {
     var b2 = new Bubble(5, 5, 2, 1);
     var b3 = new Bubble(9, 9, 3, 1);
     var b4 = new Bubble(8, 8, 4, 2);
-    var bubbles = new Hashtable<Integer, Bubble>();
+    var bubbles = new HashMap<Integer, Bubble>();
     bubbles.put(1, b1);
     bubbles.put(2, b2);
     bubbles.put(3, b3);

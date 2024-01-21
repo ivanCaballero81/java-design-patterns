@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,31 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.pageobject;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.iluwatar.pageobject.pages.AlbumListPage;
-import com.iluwatar.pageobject.pages.AlbumPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test Album Selection and Album Listing
  */
-public class AlbumListPageTest {
+class AlbumListPageTest {
 
   private final AlbumListPage albumListPage = new AlbumListPage(new WebClient());
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     albumListPage.navigateToPage();
   }
 
   @Test
-  public void testSelectAlbum() {
+  void testSelectAlbum() {
     var albumPage = albumListPage.selectAlbum("21");
     albumPage.navigateToPage();
     assertTrue(albumPage.isAt());

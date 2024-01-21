@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Converter
-folder: converter
-permalink: /patterns/converter/
-categories: Creational
-tags:
+category: Creational
+language: en
+tag:
  - Decoupling
 ---
 
@@ -105,4 +103,4 @@ domain equivalence.
 
 ## Credits
 
-* [Converter](http://www.xsolve.pl/blog/converter-pattern-in-java-8/)
+* [Converter Pattern in Java 8](http://www.xsolve.pl/blog/converter-pattern-in-java-8/)

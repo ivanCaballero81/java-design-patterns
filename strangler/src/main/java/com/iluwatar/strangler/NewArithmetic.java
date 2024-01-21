@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.strangler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * System after whole migration. Only depends on new version source ({@link NewSource}).
  */
+@Slf4j
 public class NewArithmetic {
-  private static final Logger LOGGER = LoggerFactory.getLogger(NewArithmetic.class);
-  private static final  String VERSION = "2.0";
+  private static final String VERSION = "2.0";
 
   private final NewSource source;
 
@@ -62,7 +62,7 @@ public class NewArithmetic {
   /**
    * Chech if has any zero.
    * @param nums numbers need to check
-   * @return  if has any zero, return true, else, return false
+   * @return if has any zero, return true, else, return false
    */
   public boolean ifHasZero(int... nums) {
     LOGGER.info("Arithmetic check zero {}", VERSION);

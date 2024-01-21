@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,39 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.updatemethod;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-public class StatueTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-  private Statue statue;
+class StatueTest {
 
-  @Before
-  public void setup() {
+  private static Statue statue;
+
+  @BeforeAll
+  public static void setup() {
     statue = new Statue(1, 20);
   }
 
-  @After
-  public void tearDown() {
+  @AfterAll
+  public static void tearDown() {
     statue = null;
   }
 
   @Test
-  public void testUpdateForPendingShoot() {
+  void testUpdateForPendingShoot() {
     statue.frames = 10;
     statue.update();
-    Assert.assertEquals(11, statue.frames);
+    assertEquals(11, statue.frames);
   }
 
   @Test
-  public void testUpdateForShooting() {
+  void testUpdateForShooting() {
     statue.frames = 19;
     statue.update();
-    Assert.assertEquals(0, statue.frames);
+    assertEquals(0, statue.frames);
   }
 }

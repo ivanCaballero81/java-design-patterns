@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.abstractfactory;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Abstract Factory pattern provides a way to encapsulate a group of individual factories that
@@ -38,11 +38,10 @@ import org.slf4j.LoggerFactory;
  *
  * <p>The essence of the Abstract Factory pattern is a factory interface ({@link KingdomFactory})
  * and its implementations ( {@link ElfKingdomFactory}, {@link OrcKingdomFactory}). The example uses
- * both concrete implementations to create a king, a castle and an army.
+ * both concrete implementations to create a king, a castle, and an army.
  */
+@Slf4j
 public class App implements Runnable {
-
-  private static Logger log = LoggerFactory.getLogger(App.class);
 
   private final Kingdom kingdom = new Kingdom();
 
@@ -62,17 +61,17 @@ public class App implements Runnable {
 
   @Override
   public void run() {
-    log.info("Elf Kingdom");
+    LOGGER.info("elf kingdom");
     createKingdom(Kingdom.FactoryMaker.KingdomType.ELF);
-    log.info(kingdom.getArmy().getDescription());
-    log.info(kingdom.getCastle().getDescription());
-    log.info(kingdom.getKing().getDescription());
+    LOGGER.info(kingdom.getArmy().getDescription());
+    LOGGER.info(kingdom.getCastle().getDescription());
+    LOGGER.info(kingdom.getKing().getDescription());
 
-    log.info("Orc Kingdom");
+    LOGGER.info("orc kingdom");
     createKingdom(Kingdom.FactoryMaker.KingdomType.ORC);
-    log.info(kingdom.getArmy().getDescription());
-    log.info(kingdom.getCastle().getDescription());
-    log.info(kingdom.getKing().getDescription());
+    LOGGER.info(kingdom.getArmy().getDescription());
+    LOGGER.info(kingdom.getCastle().getDescription());
+    LOGGER.info(kingdom.getKing().getDescription());
   }
 
   /**

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.event.aggregator;
 
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
@@ -41,12 +41,12 @@ import org.junit.jupiter.api.Test;
  * @param <E> Type of Event Emitter
  * @author Jeroen Meulemeester
  */
-public abstract class EventEmitterTest<E extends EventEmitter> {
+abstract class EventEmitterTest<E extends EventEmitter> {
 
   /**
    * Factory used to create a new instance of the test object with a default observer
    */
-  private final Function<EventObserver, E> factoryWithDefaultObserver;
+  private final BiFunction<EventObserver, Event, E> factoryWithDefaultObserver;
 
   /**
    * Factory used to create a new instance of the test object without passing a default observer
@@ -67,7 +67,7 @@ public abstract class EventEmitterTest<E extends EventEmitter> {
    * Create a new event emitter test, using the given test object factories, special day and event
    */
   EventEmitterTest(final Weekday specialDay, final Event event,
-                   final Function<EventObserver, E> factoryWithDefaultObserver,
+                   final BiFunction<EventObserver, Event, E> factoryWithDefaultObserver,
                    final Supplier<E> factoryWithoutDefaultObserver) {
 
     this.specialDay = specialDay;
@@ -81,7 +81,7 @@ public abstract class EventEmitterTest<E extends EventEmitter> {
    * is executed twice, once without a default emitter and once with
    */
   @Test
-  public void testAllDays() {
+  void testAllDays() {
     testAllDaysWithoutDefaultObserver(specialDay, event);
     testAllDaysWithDefaultObserver(specialDay, event);
   }
@@ -109,7 +109,7 @@ public abstract class EventEmitterTest<E extends EventEmitter> {
         }
       } else {
         // On any other normal day, the observers should have received nothing at all
-        verifyZeroInteractions(observers);
+        verifyNoMoreInteractions(observers);
       }
     }
 
@@ -129,8 +129,8 @@ public abstract class EventEmitterTest<E extends EventEmitter> {
     final var observer2 = mock(EventObserver.class);
 
     final var emitter = this.factoryWithoutDefaultObserver.get();
-    emitter.registerObserver(observer1);
-    emitter.registerObserver(observer2);
+    emitter.registerObserver(observer1, event);
+    emitter.registerObserver(observer2, event);
 
     testAllDays(specialDay, event, emitter, observer1, observer2);
   }
@@ -146,9 +146,9 @@ public abstract class EventEmitterTest<E extends EventEmitter> {
     final var observer1 = mock(EventObserver.class);
     final var observer2 = mock(EventObserver.class);
 
-    final var emitter = this.factoryWithDefaultObserver.apply(defaultObserver);
-    emitter.registerObserver(observer1);
-    emitter.registerObserver(observer2);
+    final var emitter = this.factoryWithDefaultObserver.apply(defaultObserver, event);
+    emitter.registerObserver(observer1, event);
+    emitter.registerObserver(observer2, event);
 
     testAllDays(specialDay, event, emitter, defaultObserver, observer1, observer2);
   }

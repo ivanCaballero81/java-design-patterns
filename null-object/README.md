@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Null Object
-folder: null-object
-permalink: /patterns/null-object/
-categories: Behavioral
-tags:
+category: Behavioral
+language: en
+tag:
  - Extensibility
 ---
 
@@ -57,9 +55,8 @@ We have two implementations of `Node`. The normal implementation `NodeImpl` and 
 empty nodes.
 
 ```java
+@Slf4j
 public class NodeImpl implements Node {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(NodeImpl.class);
 
   private final String name;
   private final Node left;

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.servicelayer.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,7 +76,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     for (int i = 0; i < INITIAL_COUNT; i++) {
       final var className = dao.persistentClass.getSimpleName();
       final var entityName = String.format("%s%d", className, ID_GENERATOR.incrementAndGet());
@@ -84,7 +85,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     HibernateUtil.dropSession();
   }
 
@@ -93,7 +94,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testFind() {
+  void testFind() {
     final var all = this.dao.findAll();
     for (final var entity : all) {
       final var byId = this.dao.find(entity.getId());
@@ -103,7 +104,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testDelete() {
+  void testDelete() {
     final var originalEntities = this.dao.findAll();
     this.dao.delete(originalEntities.get(1));
     this.dao.delete(originalEntities.get(2));
@@ -114,14 +115,14 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testFindAll() {
+  void testFindAll() {
     final var all = this.dao.findAll();
     assertNotNull(all);
     assertEquals(INITIAL_COUNT, all.size());
   }
 
   @Test
-  public void testSetId() {
+  void testSetId() {
     final var entity = this.factory.apply("name");
     assertNull(entity.getId());
 
@@ -131,7 +132,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testSetName() {
+  void testSetName() {
     final var entity = this.factory.apply("name");
     assertEquals("name", entity.getName());
     assertEquals("name", entity.toString());

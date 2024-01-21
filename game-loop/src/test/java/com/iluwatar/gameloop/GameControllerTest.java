@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,37 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.gameloop;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GameControllerTest {
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class GameControllerTest {
 
   private GameController controller;
 
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
     controller = new GameController();
   }
 
-  @After
-  public void tearDown() {
+  @AfterEach
+  void tearDown() {
     controller = null;
   }
 
   @Test
-  public void testMoveBullet() {
+  void testMoveBullet() {
     controller.moveBullet(1.5f);
-    Assert.assertEquals(1.5f, controller.bullet.getPosition(), 0);
+    assertEquals(1.5f, controller.bullet.getPosition(), 0);
   }
 
   @Test
-  public void testGetBulletPosition() {
-    Assert.assertEquals(controller.bullet.getPosition(), controller.getBulletPosition(), 0);
+  void testGetBulletPosition() {
+    assertEquals(controller.bullet.getPosition(), controller.getBulletPosition(), 0);
   }
 
 }

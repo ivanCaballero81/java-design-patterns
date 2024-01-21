@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +22,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.transactionscript;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * Tests {@link Room}.
  */
-public class RoomTest {
+class RoomTest {
 
   private Room room;
   private static final int ID = 1;
@@ -41,33 +42,33 @@ public class RoomTest {
   private static final boolean BOOKED = false;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     room = new Room(ID, ROOMTYPE, PRICE, BOOKED);
   }
 
   @Test
-  public void getAndSetId() {
+  void getAndSetId() {
     final var newId = 2;
     room.setId(newId);
     assertEquals(newId, room.getId());
   }
 
   @Test
-  public void getAndSetRoomType() {
+  void getAndSetRoomType() {
     final var newRoomType = "Double";
     room.setRoomType(newRoomType);
     assertEquals(newRoomType, room.getRoomType());
   }
 
   @Test
-  public void getAndSetLastName() {
+  void getAndSetLastName() {
     final var newPrice = 60;
     room.setPrice(newPrice);
     assertEquals(newPrice, room.getPrice());
   }
 
   @Test
-  public void notEqualWithDifferentId() {
+  void notEqualWithDifferentId() {
     final var newId = 2;
     final var otherRoom = new Room(newId, ROOMTYPE, PRICE, BOOKED);
     assertNotEquals(room, otherRoom);
@@ -75,21 +76,21 @@ public class RoomTest {
   }
 
   @Test
-  public void equalsWithSameObjectValues() {
+  void equalsWithSameObjectValues() {
     final var otherRoom = new Room(ID, ROOMTYPE, PRICE, BOOKED);
     assertEquals(room, otherRoom);
     assertEquals(room.hashCode(), otherRoom.hashCode());
   }
 
   @Test
-  public void equalsWithSameObjects() {
+  void equalsWithSameObjects() {
     assertEquals(room, room);
     assertEquals(room.hashCode(), room.hashCode());
   }
 
   @Test
-  public void testToString() {
-    assertEquals(String.format("Room{id=%s, roomType=%s, price=%s, booked=%s}",
+  void testToString() {
+    assertEquals(String.format("Room(id=%s, roomType=%s, price=%s, booked=%s)",
         room.getId(), room.getRoomType(), room.getPrice(), room.isBooked()), room.toString());
   }
 }

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,32 +22,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.strangler;
-
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Test methods in NewSource
  */
-public class NewSourceTest {
+class NewSourceTest {
   private static final NewSource source = new NewSource();
 
   @Test
-  public void testAccumulateSum() {
+  void testAccumulateSum() {
     assertEquals(0, source.accumulateSum(-1, 0, 1));
   }
 
   @Test
-  public void testAccumulateMul() {
+  void testAccumulateMul() {
     assertEquals(0, source.accumulateMul(-1, 0, 1));
   }
 
   @Test
-  public void testIfNonZero() {
+  void testIfNonZero() {
     assertFalse(source.ifNonZero(-1, 0, 1));
   }
 }

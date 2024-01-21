@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,31 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.typeobject;
 
 import com.iluwatar.typeobject.Candy.Type;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * The Cell object is what the game matrix is made of and contains the candy which is to be crushed
  * or collected as reward.
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cell {
   Candy candy;
   int positionX;
   int positionY;
-
-  Cell(Candy candy, int positionX, int positionY) {
-    this.candy = candy;
-    this.positionX = positionX;
-    this.positionY = positionY;
-  }
-
-  Cell() {
-    this.candy = null;
-    this.positionX = 0;
-    this.positionY = 0;
-  }
 
   void crush(CellPool pool, Cell[][] cellMatrix) {
     //take out from this position and put back in pool

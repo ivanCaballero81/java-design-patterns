@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,45 +22,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.layers.view;
-
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.AppenderBase;
-import com.iluwatar.layers.dto.CakeInfo;
-import com.iluwatar.layers.dto.CakeLayerInfo;
-import com.iluwatar.layers.dto.CakeToppingInfo;
-import com.iluwatar.layers.service.CakeBakingService;
-import com.iluwatar.layers.view.CakeViewImpl;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.AppenderBase;
+import dto.CakeInfo;
+import dto.CakeLayerInfo;
+import dto.CakeToppingInfo;
+import service.CakeBakingService;
+import java.util.LinkedList;
+import java.util.List;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
+import view.CakeViewImpl;
 
 /**
  * Date: 12/15/15 - 10:04 PM
  *
  * @author Jeroen Meulemeester
  */
-public class CakeViewImplTest {
+class CakeViewImplTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender(CakeViewImpl.class);
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
@@ -66,7 +66,7 @@ public class CakeViewImplTest {
    * Verify if the cake view renders the expected result
    */
   @Test
-  public void testRender() {
+  void testRender() {
 
     final var layers = List.of(
             new CakeLayerInfo("layer1", 1000),

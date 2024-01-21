@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,26 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.objectmother.test;
-
-import com.iluwatar.objectmother.King;
-import com.iluwatar.objectmother.Queen;
-import com.iluwatar.objectmother.Royalty;
-import com.iluwatar.objectmother.RoyaltyObjectMother;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.iluwatar.objectmother.King;
+import com.iluwatar.objectmother.Queen;
+import com.iluwatar.objectmother.RoyaltyObjectMother;
+import org.junit.jupiter.api.Test;
+
 /**
  * Test Generation of Royalty Types using the object-mother
  */
-public class RoyaltyObjectMotherTest {
+class RoyaltyObjectMotherTest {
 
   @Test
-  public void unsuccessfulKingFlirt() {
+  void unsuccessfulKingFlirt() {
     var soberUnhappyKing = RoyaltyObjectMother.createSoberUnhappyKing();
     var flirtyQueen = RoyaltyObjectMother.createFlirtyQueen();
     soberUnhappyKing.flirt(flirtyQueen);
@@ -47,7 +47,7 @@ public class RoyaltyObjectMotherTest {
   }
 
   @Test
-  public void queenIsBlockingFlirtCauseDrunkKing() {
+  void queenIsBlockingFlirtCauseDrunkKing() {
     var drunkUnhappyKing = RoyaltyObjectMother.createDrunkKing();
     var notFlirtyQueen = RoyaltyObjectMother.createNotFlirtyQueen();
     drunkUnhappyKing.flirt(notFlirtyQueen);
@@ -55,7 +55,7 @@ public class RoyaltyObjectMotherTest {
   }
 
   @Test
-  public void queenIsBlockingFlirt() {
+  void queenIsBlockingFlirt() {
     var soberHappyKing = RoyaltyObjectMother.createHappyKing();
     var notFlirtyQueen = RoyaltyObjectMother.createNotFlirtyQueen();
     soberHappyKing.flirt(notFlirtyQueen);
@@ -63,7 +63,7 @@ public class RoyaltyObjectMotherTest {
   }
 
   @Test
-  public void successfullKingFlirt() {
+  void successfullKingFlirt() {
     var soberHappyKing = RoyaltyObjectMother.createHappyKing();
     var flirtyQueen = RoyaltyObjectMother.createFlirtyQueen();
     soberHappyKing.flirt(flirtyQueen);
@@ -71,7 +71,7 @@ public class RoyaltyObjectMotherTest {
   }
 
   @Test
-  public void testQueenType() {
+  void testQueenType() {
     var flirtyQueen = RoyaltyObjectMother.createFlirtyQueen();
     var notFlirtyQueen = RoyaltyObjectMother.createNotFlirtyQueen();
     assertEquals(flirtyQueen.getClass(), Queen.class);
@@ -79,7 +79,7 @@ public class RoyaltyObjectMotherTest {
   }
 
   @Test
-  public void testKingType() {
+  void testKingType() {
     var drunkKing = RoyaltyObjectMother.createDrunkKing();
     var happyDrunkKing = RoyaltyObjectMother.createHappyDrunkKing();
     var happyKing = RoyaltyObjectMother.createHappyKing();

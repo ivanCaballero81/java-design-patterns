@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.flux.action;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Content items.
  */
+@RequiredArgsConstructor
 public enum Content {
 
-  PRODUCTS("Products - This page lists the company's products."), COMPANY(
-      "Company - This page displays information about the company.");
+  PRODUCTS("Products - This page lists the company's products."),
+  COMPANY("Company - This page displays information about the company.");
 
   private final String title;
-
-  Content(String title) {
-    this.title = title;
-  }
 
   @Override
   public String toString() {

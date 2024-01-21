@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,72 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.converter;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * User class.
  */
+@ToString
+@EqualsAndHashCode
+@Getter
+@RequiredArgsConstructor
 public class User {
   private final String firstName;
   private final String lastName;
-  private final boolean isActive;
+  private final boolean active;
   private final String userId;
-
-  /**
-   * Constructor.
-   *
-   * @param firstName user's first name
-   * @param lastName  user's last name
-   * @param isActive  flag indicating whether the user is active
-   * @param userId    user's identificator
-   */
-  public User(String firstName, String lastName, boolean isActive, String userId) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.isActive = isActive;
-    this.userId = userId;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public boolean isActive() {
-    return isActive;
-  }
-
-  public String getUserId() {
-    return userId;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    var user = (User) o;
-    return isActive == user.isActive && Objects.equals(firstName, user.firstName) && Objects
-        .equals(lastName, user.lastName) && Objects.equals(userId, user.userId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(firstName, lastName, isActive, userId);
-  }
-
-  @Override
-  public String toString() {
-    return "User{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
-        + ", isActive=" + isActive + ", userId='" + userId + '\'' + '}';
-  }
 }

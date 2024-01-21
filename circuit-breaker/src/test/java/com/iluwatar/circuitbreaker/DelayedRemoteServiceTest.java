@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.circuitbreaker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Monitoring Service test
  */
-public class DelayedRemoteServiceTest {
+class DelayedRemoteServiceTest {
 
   /**
    * Testing immediate response of the delayed service.
@@ -39,7 +40,7 @@ public class DelayedRemoteServiceTest {
    * @throws RemoteServiceException
    */
   @Test
-  public void testDefaultConstructor() throws RemoteServiceException {
+  void testDefaultConstructor() throws RemoteServiceException {
     Assertions.assertThrows(RemoteServiceException.class, () -> {
       var obj = new DelayedRemoteService();
       obj.call();
@@ -52,7 +53,7 @@ public class DelayedRemoteServiceTest {
    * @throws RemoteServiceException
    */
   @Test
-  public void testParameterizedConstructor() throws RemoteServiceException {
+  void testParameterizedConstructor() throws RemoteServiceException {
       var obj = new DelayedRemoteService(System.nanoTime()-2000*1000*1000,1);
       assertEquals("Delayed service is working",obj.call());
   }

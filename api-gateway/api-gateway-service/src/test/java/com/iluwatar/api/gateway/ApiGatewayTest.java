@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.api.gateway;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +36,7 @@ import org.mockito.MockitoAnnotations;
 /**
  * Test API Gateway Pattern
  */
-public class ApiGatewayTest {
+class ApiGatewayTest {
 
   @InjectMocks
   private ApiGateway apiGateway;
@@ -47,15 +48,15 @@ public class ApiGatewayTest {
   private PriceClient priceClient;
 
   @BeforeEach
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  void setup() {
+    MockitoAnnotations.openMocks(this);
   }
 
   /**
    * Tests getting the data for a desktop client
    */
   @Test
-  public void testGetProductDesktop() {
+  void testGetProductDesktop() {
     var imagePath = "/product-image.png";
     var price = "20";
     when(imageClient.getImagePath()).thenReturn(imagePath);
@@ -71,7 +72,7 @@ public class ApiGatewayTest {
    * Tests getting the data for a mobile client
    */
   @Test
-  public void testGetProductMobile() {
+  void testGetProductMobile() {
     var price = "20";
     when(priceClient.getPrice()).thenReturn(price);
 

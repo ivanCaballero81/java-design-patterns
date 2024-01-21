@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,10 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.api.gateway;
-
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.IOException;
 import java.net.URI;
@@ -31,17 +30,16 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-
-import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 
 /**
  * An adapter to communicate with the Price microservice.
  */
+@Slf4j
 @Component
 public class PriceClientImpl implements PriceClient {
-  private static final Logger LOGGER = getLogger(PriceClientImpl.class);
 
   /**
    * Makes a simple HTTP Get request to the Price microservice.
@@ -61,8 +59,11 @@ public class PriceClientImpl implements PriceClient {
       var httpResponse = httpClient.send(httpGet, BodyHandlers.ofString());
       logResponse(httpResponse);
       return httpResponse.body();
-    } catch (IOException | InterruptedException e) {
+    } catch (IOException e) {
       LOGGER.error("Failure occurred while getting price info", e);
+    } catch (InterruptedException e) {
+      LOGGER.error("Failure occurred while getting price info", e);
+      Thread.currentThread().interrupt();
     }
 
     return null;

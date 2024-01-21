@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,28 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.databus.data;
 
 import com.iluwatar.databus.AbstractDataType;
 import com.iluwatar.databus.DataType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * An event raised when a string message is sent.
  *
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
+@Getter
+@AllArgsConstructor
 public class MessageData extends AbstractDataType {
 
   private final String message;
-
-  public MessageData(String message) {
-    this.message = message;
-  }
-
-  public String getMessage() {
-    return message;
-  }
 
   public static DataType of(final String message) {
     return new MessageData(message);

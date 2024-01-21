@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,26 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.reactor.app;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.iluwatar.reactor.framework.SameThreadDispatcher;
 import com.iluwatar.reactor.framework.ThreadPoolDispatcher;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * This class tests the Distributed Logging service by starting a Reactor and then sending it
  * concurrent logging requests using multiple clients.
  */
-public class ReactorTest {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ReactorTest.class);
+@Slf4j
+class ReactorTest {
 
   /**
    * Test the application using pooled thread dispatcher.
@@ -48,7 +46,7 @@ public class ReactorTest {
    * @throws InterruptedException if interrupted while stopping the application.
    */
   @Test
-  public void testAppUsingThreadPoolDispatcher() throws IOException, InterruptedException {
+  void testAppUsingThreadPoolDispatcher() throws IOException, InterruptedException {
     LOGGER.info("testAppUsingThreadPoolDispatcher start");
     var app = new App(new ThreadPoolDispatcher(2));
     app.start();
@@ -80,7 +78,7 @@ public class ReactorTest {
    * @throws InterruptedException if interrupted while stopping the application.
    */
   @Test
-  public void testAppUsingSameThreadDispatcher() throws IOException, InterruptedException {
+  void testAppUsingSameThreadDispatcher() throws IOException, InterruptedException {
     LOGGER.info("testAppUsingSameThreadDispatcher start");
     var app = new App(new SameThreadDispatcher());
     app.start();

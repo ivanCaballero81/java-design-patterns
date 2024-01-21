@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.abstractdocument;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.iluwatar.abstractdocument.domain.Car;
 import com.iluwatar.abstractdocument.domain.Part;
 import com.iluwatar.abstractdocument.domain.enums.Property;
+import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test for Part and Car
  */
-public class DomainTest {
+class DomainTest {
 
   private static final String TEST_PART_TYPE = "test-part-type";
   private static final String TEST_PART_MODEL = "test-part-model";
@@ -45,7 +46,7 @@ public class DomainTest {
   private static final long TEST_CAR_PRICE = 1L;
 
   @Test
-  public void shouldConstructPart() {
+  void shouldConstructPart() {
     var partProperties = Map.of(
         Property.TYPE.toString(), TEST_PART_TYPE,
         Property.MODEL.toString(), TEST_PART_MODEL,
@@ -58,7 +59,7 @@ public class DomainTest {
   }
 
   @Test
-  public void shouldConstructCar() {
+  void shouldConstructCar() {
     var carProperties = Map.of(
         Property.MODEL.toString(), TEST_CAR_MODEL,
         Property.PRICE.toString(), TEST_CAR_PRICE,

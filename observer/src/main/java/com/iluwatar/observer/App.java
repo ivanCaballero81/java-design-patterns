@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.observer;
 
-import com.iluwatar.observer.generic.GHobbits;
-import com.iluwatar.observer.generic.GOrcs;
-import com.iluwatar.observer.generic.GWeather;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.iluwatar.observer.generic.GenHobbits;
+import com.iluwatar.observer.generic.GenOrcs;
+import com.iluwatar.observer.generic.GenWeather;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Observer pattern is a software design pattern in which an object, called the subject,
@@ -40,9 +40,8 @@ import org.slf4j.LoggerFactory;
  * <p>In this example {@link Weather} has a state that can be observed. The {@link Orcs} and {@link
  * Hobbits} register as observers and receive notifications when the {@link Weather} changes.
  */
+@Slf4j
 public class App {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   /**
    * Program entry point.
@@ -60,11 +59,11 @@ public class App {
     weather.timePasses();
     weather.timePasses();
 
-    // Generic observer inspired by Java Generics and Collection by Naftalin & Wadler
+    // Generic observer inspired by Java Generics and Collections by Naftalin & Wadler
     LOGGER.info("--Running generic version--");
-    var genericWeather = new GWeather();
-    genericWeather.addObserver(new GOrcs());
-    genericWeather.addObserver(new GHobbits());
+    var genericWeather = new GenWeather();
+    genericWeather.addObserver(new GenOrcs());
+    genericWeather.addObserver(new GenHobbits());
 
     genericWeather.timePasses();
     genericWeather.timePasses();

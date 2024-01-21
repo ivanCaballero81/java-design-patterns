@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,10 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.leaderfollowers;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -84,7 +85,7 @@ public class App {
    * Add tasks.
    */
   private static void addTasks(TaskSet taskSet) throws InterruptedException {
-    var rand = new Random();
+    var rand = new SecureRandom();
     for (var i = 0; i < 5; i++) {
       var time = Math.abs(rand.nextInt(1000));
       taskSet.addTask(new Task(time));

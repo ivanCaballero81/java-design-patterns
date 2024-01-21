@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.factory.method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,14 +41,14 @@ import org.junit.jupiter.api.Test;
  * implementation it is referring to.
  * </p>
  */
-public class FactoryMethodTest {
+class FactoryMethodTest {
 
   /**
    * Testing {@link OrcBlacksmith} to produce a SPEAR asserting that the Weapon is an instance of
    * {@link OrcWeapon}.
    */
   @Test
-  public void testOrcBlacksmithWithSpear() {
+  void testOrcBlacksmithWithSpear() {
     var blacksmith = new OrcBlacksmith();
     var weapon = blacksmith.manufactureWeapon(WeaponType.SPEAR);
     verifyWeapon(weapon, WeaponType.SPEAR, OrcWeapon.class);
@@ -58,7 +59,7 @@ public class FactoryMethodTest {
    * {@link OrcWeapon}.
    */
   @Test
-  public void testOrcBlacksmithWithAxe() {
+  void testOrcBlacksmithWithAxe() {
     var blacksmith = new OrcBlacksmith();
     var weapon = blacksmith.manufactureWeapon(WeaponType.AXE);
     verifyWeapon(weapon, WeaponType.AXE, OrcWeapon.class);
@@ -69,7 +70,7 @@ public class FactoryMethodTest {
    * of {@link ElfWeapon}.
    */
   @Test
-  public void testElfBlacksmithWithShortSword() {
+  void testElfBlacksmithWithShortSword() {
     var blacksmith = new ElfBlacksmith();
     var weapon = blacksmith.manufactureWeapon(WeaponType.SHORT_SWORD);
     verifyWeapon(weapon, WeaponType.SHORT_SWORD, ElfWeapon.class);
@@ -80,7 +81,7 @@ public class FactoryMethodTest {
    * {@link ElfWeapon}.
    */
   @Test
-  public void testElfBlacksmithWithSpear() {
+  void testElfBlacksmithWithSpear() {
     var blacksmith = new ElfBlacksmith();
     var weapon = blacksmith.manufactureWeapon(WeaponType.SPEAR);
     verifyWeapon(weapon, WeaponType.SPEAR, ElfWeapon.class);

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,21 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.adapter;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 /**
- * Test class
+ * Tests for the adapter pattern.
  */
-public class AdapterPatternTest {
+class AdapterPatternTest {
 
   private Map<String, Object> beans;
 
@@ -46,7 +47,7 @@ public class AdapterPatternTest {
    * This method runs before the test execution and sets the bean objects in the beans Map.
    */
   @BeforeEach
-  public void setup() {
+  void setup() {
     beans = new HashMap<>();
 
     var fishingBoatAdapter = spy(new FishingBoatAdapter());
@@ -64,7 +65,7 @@ public class AdapterPatternTest {
    * by the client ({@link Captain} ).
    */
   @Test
-  public void testAdapter() {
+  void testAdapter() {
     var captain = (Captain) beans.get(ROWING_BEAN);
 
     // when captain moves

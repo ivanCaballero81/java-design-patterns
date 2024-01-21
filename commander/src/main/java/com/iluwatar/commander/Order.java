@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.commander;
 
-import java.util.Hashtable;
-import java.util.Random;
+import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Order class holds details of the order.
@@ -33,11 +35,16 @@ import java.util.Random;
 public class Order { //can store all transactions ids also
 
   enum PaymentStatus {
-    NOT_DONE, TRYING, DONE
+    NOT_DONE,
+    TRYING,
+    DONE
   }
 
   enum MessageSent {
-    NONE_SENT, PAYMENT_FAIL, PAYMENT_TRYING, PAYMENT_SUCCESSFUL
+    NONE_SENT,
+    PAYMENT_FAIL,
+    PAYMENT_TRYING,
+    PAYMENT_SUCCESSFUL
   }
 
   final User user;
@@ -45,9 +52,9 @@ public class Order { //can store all transactions ids also
   public final String id;
   final float price;
   final long createdTime;
-  private static final Random RANDOM = new Random();
+  private static final SecureRandom RANDOM = new SecureRandom();
   private static final String ALL_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-  private static final Hashtable<String, Boolean> USED_IDS = new Hashtable<String, Boolean>();
+  private static final Map<String, Boolean> USED_IDS = new HashMap<>();
   PaymentStatus paid;
   MessageSent messageSent; //to avoid sending error msg on page and text more than once
   boolean addedToEmployeeHandle; //to avoid creating more to enqueue

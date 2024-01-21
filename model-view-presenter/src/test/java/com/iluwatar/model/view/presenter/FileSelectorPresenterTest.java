@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.model.view.presenter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +36,7 @@ import org.junit.jupiter.api.Test;
  * This test case is responsible for testing our application by taking advantage of the
  * Model-View-Controller architectural pattern.
  */
-public class FileSelectorPresenterTest {
+class FileSelectorPresenterTest {
 
   /**
    * The Presenter component.
@@ -56,7 +57,7 @@ public class FileSelectorPresenterTest {
    * Initializes the components of the test case.
    */
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     this.stub = new FileSelectorStub();
     this.loader = new FileLoader();
     presenter = new FileSelectorPresenter(this.stub);
@@ -67,7 +68,7 @@ public class FileSelectorPresenterTest {
    * Tests if the Presenter was successfully connected with the View.
    */
   @Test
-  public void wiring() {
+  void wiring() {
     presenter.start();
 
     assertNotNull(stub.getPresenter());
@@ -78,7 +79,7 @@ public class FileSelectorPresenterTest {
    * Tests if the name of the file changes.
    */
   @Test
-  public void updateFileNameToLoader() {
+  void updateFileNameToLoader() {
     var expectedFile = "Stamatis";
     stub.setFileName(expectedFile);
 
@@ -93,7 +94,7 @@ public class FileSelectorPresenterTest {
    * empty string.
    */
   @Test
-  public void fileConfirmationWhenNameIsNull() {
+  void fileConfirmationWhenNameIsNull() {
     stub.setFileName(null);
 
     presenter.start();
@@ -108,7 +109,7 @@ public class FileSelectorPresenterTest {
    * Tests if we receive a confirmation when we attempt to open a file that it doesn't exist.
    */
   @Test
-  public void fileConfirmationWhenFileDoesNotExist() {
+  void fileConfirmationWhenFileDoesNotExist() {
     stub.setFileName("RandomName.txt");
 
     presenter.start();
@@ -123,7 +124,7 @@ public class FileSelectorPresenterTest {
    * Tests if we can open the file, when it exists.
    */
   @Test
-  public void fileConfirmationWhenFileExists() {
+  void fileConfirmationWhenFileExists() {
     stub.setFileName("etc/data/test.txt");
     presenter.start();
     presenter.fileNameChanged();
@@ -137,10 +138,22 @@ public class FileSelectorPresenterTest {
    * Tests if the view closes after cancellation.
    */
   @Test
-  public void cancellation() {
+  void cancellation() {
     presenter.start();
     presenter.cancelled();
 
     assertFalse(stub.isOpened());
   }
+
+  @Test
+  void testNullFile() {
+    stub.setFileName(null);
+    presenter.start();
+    presenter.fileNameChanged();
+    presenter.confirmed();
+
+    assertFalse(loader.isLoaded());
+    assertFalse(stub.dataDisplayed());
+  }
+
 }

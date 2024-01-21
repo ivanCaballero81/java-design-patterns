@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Arrange/Act/Assert
-folder: arrange-act-assert
-permalink: /patterns/arrange-act-assert/
-categories: Idiom
-tags:
+category: Idiom
+language: en
+tag:
  - Testing
 ---
 
@@ -81,10 +79,10 @@ Then we write our unit tests according to Arrange/Act/Assert pattern. Notice the
 separated steps for each unit test.
 
 ```java
-public class CashAAATest {
+class CashAAATest {
 
   @Test
-  public void testPlus() {
+  void testPlus() {
     //Arrange
     var cash = new Cash(3);
     //Act
@@ -94,7 +92,7 @@ public class CashAAATest {
   }
 
   @Test
-  public void testMinus() {
+  void testMinus() {
     //Arrange
     var cash = new Cash(8);
     //Act
@@ -105,7 +103,7 @@ public class CashAAATest {
   }
 
   @Test
-  public void testInsufficientMinus() {
+  void testInsufficientMinus() {
     //Arrange
     var cash = new Cash(1);
     //Act
@@ -116,7 +114,7 @@ public class CashAAATest {
   }
 
   @Test
-  public void testUpdate() {
+  void testUpdate() {
     //Arrange
     var cash = new Cash(5);
     //Act

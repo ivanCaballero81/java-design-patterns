@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,93 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.event.asynchronous;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Each Event runs as a separate/individual thread.
+ * Events that fulfill the start stop and list out current status behaviour follow this interface.
  */
-public class Event implements IEvent, Runnable {
+public interface Event {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Event.class);
+  void start();
 
-  private final int eventId;
-  private final int eventTime;
-  private final boolean isSynchronous;
-  private Thread thread;
-  private boolean isComplete = false;
-  private ThreadCompleteListener eventListener;
+  void stop();
 
-  /**
-   * Constructor.
-   *
-   * @param eventId       event ID
-   * @param eventTime     event time
-   * @param isSynchronous is of synchronous type
-   */
-  public Event(final int eventId, final int eventTime, final boolean isSynchronous) {
-    this.eventId = eventId;
-    this.eventTime = eventTime;
-    this.isSynchronous = isSynchronous;
-  }
-
-  public boolean isSynchronous() {
-    return isSynchronous;
-  }
-
-  @Override
-  public void start() {
-    thread = new Thread(this);
-    thread.start();
-  }
-
-  @Override
-  public void stop() {
-    if (null == thread) {
-      return;
-    }
-    thread.interrupt();
-  }
-
-  @Override
-  public void status() {
-    if (!isComplete) {
-      LOGGER.info("[{}] is not done.", eventId);
-    } else {
-      LOGGER.info("[{}] is done.", eventId);
-    }
-  }
-
-  @Override
-  public void run() {
-    var currentTime = System.currentTimeMillis();
-    var endTime = currentTime + (eventTime * 1000);
-    while (System.currentTimeMillis() < endTime) {
-      try {
-        Thread.sleep(1000); // Sleep for 1 second.
-      } catch (InterruptedException e) {
-        return;
-      }
-    }
-    isComplete = true;
-    completed();
-  }
-
-  public final void addListener(final ThreadCompleteListener listener) {
-    this.eventListener = listener;
-  }
-
-  public final void removeListener(final ThreadCompleteListener listener) {
-    this.eventListener = null;
-  }
-
-  private void completed() {
-    if (eventListener != null) {
-      eventListener.completedEventHandler(eventId);
-    }
-  }
+  void status();
 
 }

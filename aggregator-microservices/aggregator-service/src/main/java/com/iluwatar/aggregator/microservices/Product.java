@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.aggregator.microservices;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Encapsulates all the data for a Product that clients will request.
  */
+@Getter
+@Setter
 public class Product {
 
   /**
@@ -38,21 +44,5 @@ public class Product {
    * The inventories of the product.
    */
   private int productInventories;
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public int getProductInventories() {
-    return productInventories;
-  }
-
-  public void setProductInventories(int productInventories) {
-    this.productInventories = productInventories;
-  }
 
 }

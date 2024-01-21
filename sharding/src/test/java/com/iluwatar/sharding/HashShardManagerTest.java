@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,26 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.sharding;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for HashShardManager class.
  */
-public class HashShardManagerTest {
+class HashShardManagerTest {
 
   private HashShardManager hashShardManager;
 
   /**
    * Initialize hashShardManager instance.
    */
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
     hashShardManager = new HashShardManager();
     var shard1 = new Shard(1);
     var shard2 = new Shard(2);
@@ -49,16 +50,11 @@ public class HashShardManagerTest {
     hashShardManager.addNewShard(shard3);
   }
 
-  @After
-  public void tearDown() {
-
-  }
-
   @Test
-  public void testStoreData() {
+  void testStoreData() {
     var data = new Data(1, "test", Data.DataType.TYPE_1);
     hashShardManager.storeData(data);
-    Assert.assertEquals(data, hashShardManager.getShardById(1).getDataById(1));
+    assertEquals(data, hashShardManager.getShardById(1).getDataById(1));
   }
 
 }

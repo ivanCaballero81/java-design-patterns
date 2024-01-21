@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.spatialpartition;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * This class extends the generic SpatialPartition abstract class and is used in our example to keep
@@ -33,20 +34,20 @@ import java.util.Hashtable;
 
 public class SpatialPartitionBubbles extends SpatialPartitionGeneric<Bubble> {
 
-  private final Hashtable<Integer, Bubble> bubbles;
-  private final QuadTree quadTree;
+  private final Map<Integer, Bubble> bubbles;
+  private final QuadTree bubblesQuadTree;
 
-  SpatialPartitionBubbles(Hashtable<Integer, Bubble> bubbles, QuadTree quadTree) {
+  SpatialPartitionBubbles(Map<Integer, Bubble> bubbles, QuadTree bubblesQuadTree) {
     this.bubbles = bubbles;
-    this.quadTree = quadTree;
+    this.bubblesQuadTree = bubblesQuadTree;
   }
 
   void handleCollisionsUsingQt(Bubble b) {
     // finding points within area of a square drawn with centre same as
     // centre of bubble and length = radius of bubble
-    var rect = new Rect(b.coordinateX, b.coordinateY, 2 * b.radius, 2 * b.radius);
+    var rect = new Rect(b.coordinateX, b.coordinateY, 2D * b.radius, 2D * b.radius);
     var quadTreeQueryResult = new ArrayList<Point>();
-    this.quadTree.query(rect, quadTreeQueryResult);
+    this.bubblesQuadTree.query(rect, quadTreeQueryResult);
     //handling these collisions
     b.handleCollision(quadTreeQueryResult, this.bubbles);
   }

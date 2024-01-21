@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,13 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.commander.messagingservice;
 
 import com.iluwatar.commander.Service;
 import com.iluwatar.commander.exceptions.DatabaseUnavailableException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The MessagingService is used to send messages to user regarding their order and payment status.
@@ -34,21 +35,19 @@ import org.slf4j.LoggerFactory;
  * is added to the {@link com.iluwatar.commander.employeehandle.EmployeeDatabase}.
  */
 
+@Slf4j
 public class MessagingService extends Service {
-  private static final Logger LOGGER = LoggerFactory.getLogger(MessagingService.class);
 
   enum MessageToSend {
-    PAYMENT_FAIL, PAYMENT_TRYING, PAYMENT_SUCCESSFUL
+    PAYMENT_FAIL,
+    PAYMENT_TRYING,
+    PAYMENT_SUCCESSFUL
   }
 
-  class MessageRequest {
-    String reqId;
-    MessageToSend msg;
-
-    MessageRequest(String reqId, MessageToSend msg) {
-      this.reqId = reqId;
-      this.msg = msg;
-    }
+  @RequiredArgsConstructor
+  static class MessageRequest {
+    final String reqId;
+    final MessageToSend msg;
   }
 
   public MessagingService(MessagingDatabase db, Exception... exc) {

@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Transaction Script
-folder: transaction-script
-permalink: /patterns/transaction-script/
-categories: Behavioral
-tags:
+category: Behavioral
+language: en
+tag:
  - Data access
 ---
 
@@ -29,8 +27,8 @@ Programmatic example
 The `Hotel` class takes care of booking and cancelling room reservations.
 
 ```java
+@Slf4j
 public class Hotel {
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   private final HotelDaoImpl hotelDao;
 

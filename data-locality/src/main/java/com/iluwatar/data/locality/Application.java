@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.data.locality;
 
 import com.iluwatar.data.locality.game.GameEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Use the Data Locality pattern is when you have a performance problem. Take advantage of that to
@@ -35,9 +35,8 @@ import org.slf4j.LoggerFactory;
  * <p>Example:  Game loop that processes a bunch of game entities. Those entities are decomposed
  * into different domains  — AI, physics, and rendering — using the Component pattern.
  */
+@Slf4j
 public class Application {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   private static final int NUM_ENTITIES = 5;
 

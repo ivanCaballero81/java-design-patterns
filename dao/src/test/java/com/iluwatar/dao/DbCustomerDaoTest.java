@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +47,7 @@ import org.mockito.Mockito;
 /**
  * Tests {@link DbCustomerDao}.
  */
-public class DbCustomerDaoTest {
+class DbCustomerDaoTest {
 
   private static final String DB_URL = "jdbc:h2:~/dao";
   private DbCustomerDao dao;
@@ -58,7 +59,7 @@ public class DbCustomerDaoTest {
    * @throws SQLException if there is any error while creating schema.
    */
   @BeforeEach
-  public void createSchema() throws SQLException {
+  void createSchema() throws SQLException {
     try (var connection = DriverManager.getConnection(DB_URL);
          var statement = connection.createStatement()) {
       statement.execute(CustomerSchemaSql.CREATE_SCHEMA_SQL);
@@ -69,7 +70,7 @@ public class DbCustomerDaoTest {
    * Represents the scenario where DB connectivity is present.
    */
   @Nested
-  public class ConnectionSuccess {
+  class ConnectionSuccess {
 
     /**
      * Setup for connection success scenario.
@@ -77,7 +78,7 @@ public class DbCustomerDaoTest {
      * @throws Exception if any error occurs.
      */
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
       var dataSource = new JdbcDataSource();
       dataSource.setURL(DB_URL);
       dao = new DbCustomerDao(dataSource);
@@ -89,10 +90,10 @@ public class DbCustomerDaoTest {
      * Represents the scenario when DAO operations are being performed on a non existing customer.
      */
     @Nested
-    public class NonExistingCustomer {
+    class NonExistingCustomer {
 
       @Test
-      public void addingShouldResultInSuccess() throws Exception {
+      void addingShouldResultInSuccess() throws Exception {
         try (var allCustomers = dao.getAll()) {
           assumeTrue(allCustomers.count() == 1);
         }
@@ -106,7 +107,7 @@ public class DbCustomerDaoTest {
       }
 
       @Test
-      public void deletionShouldBeFailureAndNotAffectExistingCustomers() throws Exception {
+      void deletionShouldBeFailureAndNotAffectExistingCustomers() throws Exception {
         final var nonExistingCustomer = new Customer(2, "Robert", "Englund");
         var result = dao.delete(nonExistingCustomer);
 
@@ -115,7 +116,7 @@ public class DbCustomerDaoTest {
       }
 
       @Test
-      public void updationShouldBeFailureAndNotAffectExistingCustomers() throws Exception {
+      void updationShouldBeFailureAndNotAffectExistingCustomers() throws Exception {
         final var nonExistingId = getNonExistingCustomerId();
         final var newFirstname = "Douglas";
         final var newLastname = "MacArthur";
@@ -127,7 +128,7 @@ public class DbCustomerDaoTest {
       }
 
       @Test
-      public void retrieveShouldReturnNoCustomer() throws Exception {
+      void retrieveShouldReturnNoCustomer() throws Exception {
         assertFalse(dao.getById(getNonExistingCustomerId()).isPresent());
       }
     }
@@ -137,10 +138,10 @@ public class DbCustomerDaoTest {
      * customer.
      */
     @Nested
-    public class ExistingCustomer {
+    class ExistingCustomer {
 
       @Test
-      public void addingShouldResultInFailureAndNotAffectExistingCustomers() throws Exception {
+      void addingShouldResultInFailureAndNotAffectExistingCustomers() throws Exception {
         var existingCustomer = new Customer(1, "Freddy", "Krueger");
         var result = dao.add(existingCustomer);
 
@@ -150,7 +151,7 @@ public class DbCustomerDaoTest {
       }
 
       @Test
-      public void deletionShouldBeSuccessAndCustomerShouldBeNonAccessible() throws Exception {
+      void deletionShouldBeSuccessAndCustomerShouldBeNonAccessible() throws Exception {
         var result = dao.delete(existingCustomer);
 
         assertTrue(result);
@@ -159,7 +160,7 @@ public class DbCustomerDaoTest {
       }
 
       @Test
-      public void updationShouldBeSuccessAndAccessingTheSameCustomerShouldReturnUpdatedInformation() throws
+      void updationShouldBeSuccessAndAccessingTheSameCustomerShouldReturnUpdatedInformation() throws
           Exception {
         final var newFirstname = "Bernard";
         final var newLastname = "Montgomery";
@@ -180,7 +181,7 @@ public class DbCustomerDaoTest {
    * unavailable.
    */
   @Nested
-  public class ConnectivityIssue {
+  class ConnectivityIssue {
 
     private static final String EXCEPTION_CAUSE = "Connection not available";
 
@@ -190,7 +191,7 @@ public class DbCustomerDaoTest {
      * @throws SQLException if any error occurs.
      */
     @BeforeEach
-    public void setUp() throws SQLException {
+    void setUp() throws SQLException {
       dao = new DbCustomerDao(mockedDatasource());
     }
 
@@ -204,21 +205,21 @@ public class DbCustomerDaoTest {
     }
 
     @Test
-    public void addingACustomerFailsWithExceptionAsFeedbackToClient() {
+    void addingACustomerFailsWithExceptionAsFeedbackToClient() {
       assertThrows(Exception.class, () -> {
         dao.add(new Customer(2, "Bernard", "Montgomery"));
       });
     }
 
     @Test
-    public void deletingACustomerFailsWithExceptionAsFeedbackToTheClient() {
+    void deletingACustomerFailsWithExceptionAsFeedbackToTheClient() {
       assertThrows(Exception.class, () -> {
         dao.delete(existingCustomer);
       });
     }
 
     @Test
-    public void updatingACustomerFailsWithFeedbackToTheClient() {
+    void updatingACustomerFailsWithFeedbackToTheClient() {
       final var newFirstname = "Bernard";
       final var newLastname = "Montgomery";
       assertThrows(Exception.class, () -> {
@@ -227,14 +228,14 @@ public class DbCustomerDaoTest {
     }
 
     @Test
-    public void retrievingACustomerByIdFailsWithExceptionAsFeedbackToClient() {
+    void retrievingACustomerByIdFailsWithExceptionAsFeedbackToClient() {
       assertThrows(Exception.class, () -> {
         dao.getById(existingCustomer.getId());
       });
     }
 
     @Test
-    public void retrievingAllCustomersFailsWithExceptionAsFeedbackToClient() {
+    void retrievingAllCustomersFailsWithExceptionAsFeedbackToClient() {
       assertThrows(Exception.class, () -> {
         dao.getAll();
       });
@@ -248,7 +249,7 @@ public class DbCustomerDaoTest {
    * @throws SQLException if any error occurs.
    */
   @AfterEach
-  public void deleteSchema() throws SQLException {
+  void deleteSchema() throws SQLException {
     try (var connection = DriverManager.getConnection(DB_URL);
          var statement = connection.createStatement()) {
       statement.execute(CustomerSchemaSql.DELETE_SCHEMA_SQL);
@@ -260,7 +261,6 @@ public class DbCustomerDaoTest {
       assertEquals(count, allCustomers.count());
     }
   }
-
 
   /**
    * An arbitrary number which does not correspond to an active Customer id.

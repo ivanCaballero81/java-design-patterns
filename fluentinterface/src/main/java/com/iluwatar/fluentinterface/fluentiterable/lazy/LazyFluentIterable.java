@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.fluentinterface.fluentiterable.lazy;
 
 import com.iluwatar.fluentinterface.fluentiterable.FluentIterable;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import lombok.RequiredArgsConstructor;
 
 /**
  * This is a lazy implementation of the FluentIterable interface. It evaluates all chained
@@ -37,18 +39,10 @@ import java.util.function.Predicate;
  *
  * @param <E> the type of the objects the iteration is about
  */
+@RequiredArgsConstructor
 public class LazyFluentIterable<E> implements FluentIterable<E> {
 
   private final Iterable<E> iterable;
-
-  /**
-   * This constructor creates a new LazyFluentIterable. It wraps the given iterable.
-   *
-   * @param iterable the iterable this FluentIterable works on.
-   */
-  protected LazyFluentIterable(Iterable<E> iterable) {
-    this.iterable = iterable;
-  }
 
   /**
    * This constructor can be used to implement anonymous subclasses of the LazyFluentIterable.

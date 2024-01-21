@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,16 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.servicelayer.magic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import com.iluwatar.servicelayer.spell.Spell;
@@ -46,16 +46,16 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class MagicServiceImplTest {
+class MagicServiceImplTest {
 
   @Test
-  public void testFindAllWizards() {
+  void testFindAllWizards() {
     final var wizardDao = mock(WizardDao.class);
     final var spellbookDao = mock(SpellbookDao.class);
     final var spellDao = mock(SpellDao.class);
 
     final var service = new MagicServiceImpl(wizardDao, spellbookDao, spellDao);
-    verifyZeroInteractions(wizardDao, spellbookDao, spellDao);
+    verifyNoInteractions(wizardDao, spellbookDao, spellDao);
 
     service.findAllWizards();
     verify(wizardDao).findAll();
@@ -63,13 +63,13 @@ public class MagicServiceImplTest {
   }
 
   @Test
-  public void testFindAllSpellbooks() {
+  void testFindAllSpellbooks() {
     final var wizardDao = mock(WizardDao.class);
     final var spellbookDao = mock(SpellbookDao.class);
     final var spellDao = mock(SpellDao.class);
 
     final var service = new MagicServiceImpl(wizardDao, spellbookDao, spellDao);
-    verifyZeroInteractions(wizardDao, spellbookDao, spellDao);
+    verifyNoInteractions(wizardDao, spellbookDao, spellDao);
 
     service.findAllSpellbooks();
     verify(spellbookDao).findAll();
@@ -77,13 +77,13 @@ public class MagicServiceImplTest {
   }
 
   @Test
-  public void testFindAllSpells() {
+  void testFindAllSpells() {
     final var wizardDao = mock(WizardDao.class);
     final var spellbookDao = mock(SpellbookDao.class);
     final var spellDao = mock(SpellDao.class);
 
     final var service = new MagicServiceImpl(wizardDao, spellbookDao, spellDao);
-    verifyZeroInteractions(wizardDao, spellbookDao, spellDao);
+    verifyNoInteractions(wizardDao, spellbookDao, spellDao);
 
     service.findAllSpells();
     verify(spellDao).findAll();
@@ -91,7 +91,7 @@ public class MagicServiceImplTest {
   }
 
   @Test
-  public void testFindWizardsWithSpellbook() {
+  void testFindWizardsWithSpellbook() {
     final var bookname = "bookname";
     final var spellbook = mock(Spellbook.class);
     final var wizards = Set.of(
@@ -102,17 +102,17 @@ public class MagicServiceImplTest {
     when(spellbook.getWizards()).thenReturn(wizards);
 
     final var spellbookDao = mock(SpellbookDao.class);
-    when(spellbookDao.findByName(eq(bookname))).thenReturn(spellbook);
+    when(spellbookDao.findByName(bookname)).thenReturn(spellbook);
 
     final var wizardDao = mock(WizardDao.class);
     final var spellDao = mock(SpellDao.class);
 
 
     final var service = new MagicServiceImpl(wizardDao, spellbookDao, spellDao);
-    verifyZeroInteractions(wizardDao, spellbookDao, spellDao, spellbook);
+    verifyNoInteractions(wizardDao, spellbookDao, spellDao, spellbook);
 
     final var result = service.findWizardsWithSpellbook(bookname);
-    verify(spellbookDao).findByName(eq(bookname));
+    verify(spellbookDao).findByName(bookname);
     verify(spellbook).getWizards();
 
     assertNotNull(result);
@@ -122,7 +122,7 @@ public class MagicServiceImplTest {
   }
 
   @Test
-  public void testFindWizardsWithSpell() throws Exception {
+  void testFindWizardsWithSpell() throws Exception {
     final var wizards = Set.of(
         mock(Wizard.class),
         mock(Wizard.class),
@@ -139,13 +139,13 @@ public class MagicServiceImplTest {
 
     final var spellName = "spellname";
     final var spellDao = mock(SpellDao.class);
-    when(spellDao.findByName(eq(spellName))).thenReturn(spell);
+    when(spellDao.findByName(spellName)).thenReturn(spell);
 
     final var service = new MagicServiceImpl(wizardDao, spellbookDao, spellDao);
-    verifyZeroInteractions(wizardDao, spellbookDao, spellDao, spellbook);
+    verifyNoInteractions(wizardDao, spellbookDao, spellDao, spellbook);
 
     final var result = service.findWizardsWithSpell(spellName);
-    verify(spellDao).findByName(eq(spellName));
+    verify(spellDao).findByName(spellName);
     verify(spellbook).getWizards();
 
     assertNotNull(result);

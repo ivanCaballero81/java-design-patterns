@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.state;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,17 +42,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jeroen Meulemeester
  */
-public class MammothTest {
+class MammothTest {
 
   private InMemoryAppender appender;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     appender = new InMemoryAppender();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     appender.stop();
   }
 
@@ -60,7 +61,7 @@ public class MammothTest {
    * value.
    */
   @Test
-  public void testTimePasses() {
+  void testTimePasses() {
     final var mammoth = new Mammoth();
 
     mammoth.observe();
@@ -89,7 +90,7 @@ public class MammothTest {
    * Verify if {@link Mammoth#toString()} gives the expected value
    */
   @Test
-  public void testToString() {
+  void testToString() {
     final var toString = new Mammoth().toString();
     assertNotNull(toString);
     assertEquals("The mammoth", toString);

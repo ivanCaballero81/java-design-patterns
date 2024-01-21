@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,13 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.commander.shippingservice;
 
 import com.iluwatar.commander.Database;
-import com.iluwatar.commander.exceptions.DatabaseUnavailableException;
 import com.iluwatar.commander.shippingservice.ShippingService.ShippingRequest;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * ShippingDatabase is where the ShippingRequest objects are added.
@@ -34,11 +35,7 @@ import java.util.Hashtable;
 
 public class ShippingDatabase extends Database<ShippingRequest> {
 
-  private final Hashtable<String, ShippingRequest> data;
-
-  public ShippingDatabase() {
-    this.data = new Hashtable<>();
-  }
+  private final Map<String, ShippingRequest> data = new Hashtable<>();
 
   @Override
   public ShippingRequest add(ShippingRequest r) {

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.hexagonal.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,8 +62,8 @@ class MongoTicketRepositoryTest {
 
   @Test
   void testSetup() {
-    assertEquals(1, repository.getCountersCollection().count());
-    assertEquals(0, repository.getTicketsCollection().count());
+    assertEquals(1, repository.getCountersCollection().countDocuments());
+    assertEquals(0, repository.getTicketsCollection().countDocuments());
   }
 
   @Test
@@ -79,7 +80,7 @@ class MongoTicketRepositoryTest {
     var random = LotteryNumbers.createRandom();
     var original = new LotteryTicket(new LotteryTicketId(), details, random);
     var saved = repository.save(original);
-    assertEquals(1, repository.getTicketsCollection().count());
+    assertEquals(1, repository.getTicketsCollection().countDocuments());
     assertTrue(saved.isPresent());
     // fetch the saved lottery ticket from database and check its contents
     var found = repository.findById(saved.get());
@@ -88,9 +89,9 @@ class MongoTicketRepositoryTest {
     assertEquals("foo@bar.com", ticket.getPlayerDetails().getEmail());
     assertEquals("123-123", ticket.getPlayerDetails().getBankAccount());
     assertEquals("07001234", ticket.getPlayerDetails().getPhoneNumber());
-    assertEquals(original.getNumbers(), ticket.getNumbers());
+    assertEquals(original.getLotteryNumbers(), ticket.getLotteryNumbers());
     // clear the collection
     repository.deleteAll();
-    assertEquals(0, repository.getTicketsCollection().count());
+    assertEquals(0, repository.getTicketsCollection().countDocuments());
   }
 }

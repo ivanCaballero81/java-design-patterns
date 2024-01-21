@@ -1,10 +1,8 @@
 ---
-layout: pattern
 title: Facade
-folder: facade
-permalink: /patterns/facade/
-categories: Structural
-tags:
+category: Structural
+language: en
+tag:
  - Gang Of Four
  - Decoupling
 ---
@@ -16,7 +14,7 @@ interface that makes the subsystem easier to use.
 
 ## Explanation
 
-Real world example
+Real-world example
 
 > How does a goldmine work? "Well, the miners go down there and dig gold!" you say. That is what you 
 > believe because you are using a simple interface that goldmine provides on the outside, internally 
@@ -38,60 +36,48 @@ Let's take our goldmine example from above. Here we have the dwarven mine worker
 there's a base class `DwarvenMineWorker`:
 
 ```java
+
+@Slf4j
 public abstract class DwarvenMineWorker {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenMineWorker.class);
-
-  public void goToSleep() {
-    LOGGER.info("{} goes to sleep.", name());
-  }
-
-  public void wakeUp() {
-    LOGGER.info("{} wakes up.", name());
-  }
-
-  public void goHome() {
-    LOGGER.info("{} goes home.", name());
-  }
-
-  public void goToMine() {
-    LOGGER.info("{} goes to the mine.", name());
-  }
-
-  private void action(Action action) {
-    switch (action) {
-      case GO_TO_SLEEP:
-        goToSleep();
-        break;
-      case WAKE_UP:
-        wakeUp();
-        break;
-      case GO_HOME:
-        goHome();
-        break;
-      case GO_TO_MINE:
-        goToMine();
-        break;
-      case WORK:
-        work();
-        break;
-      default:
-        LOGGER.info("Undefined action");
-        break;
+    public void goToSleep() {
+        LOGGER.info("{} goes to sleep.", name());
     }
-  }
 
-  public void action(Action... actions) {
-    Arrays.stream(actions).forEach(this::action);
-  }
+    public void wakeUp() {
+        LOGGER.info("{} wakes up.", name());
+    }
 
-  public abstract void work();
+    public void goHome() {
+        LOGGER.info("{} goes home.", name());
+    }
 
-  public abstract String name();
+    public void goToMine() {
+        LOGGER.info("{} goes to the mine.", name());
+    }
 
-  enum Action {
-    GO_TO_SLEEP, WAKE_UP, GO_HOME, GO_TO_MINE, WORK
-  }
+    private void action(Action action) {
+        switch (action) {
+            case GO_TO_SLEEP -> goToSleep();
+            case WAKE_UP -> wakeUp();
+            case GO_HOME -> goHome();
+            case GO_TO_MINE -> goToMine();
+            case WORK -> work();
+            default -> LOGGER.info("Undefined action");
+        }
+    }
+
+    public void action(Action... actions) {
+        Arrays.stream(actions).forEach(this::action);
+    }
+
+    public abstract void work();
+
+    public abstract String name();
+
+    enum Action {
+        GO_TO_SLEEP, WAKE_UP, GO_HOME, GO_TO_MINE, WORK
+    }
 }
 ```
 
@@ -99,9 +85,8 @@ Then we have the concrete dwarf classes `DwarvenTunnelDigger`, `DwarvenGoldDigge
 `DwarvenCartOperator`:
 
 ```java
+@Slf4j
 public class DwarvenTunnelDigger extends DwarvenMineWorker {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenTunnelDigger.class);
 
   @Override
   public void work() {
@@ -114,9 +99,8 @@ public class DwarvenTunnelDigger extends DwarvenMineWorker {
   }
 }
 
+@Slf4j
 public class DwarvenGoldDigger extends DwarvenMineWorker {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenGoldDigger.class);
 
   @Override
   public void work() {
@@ -129,9 +113,8 @@ public class DwarvenGoldDigger extends DwarvenMineWorker {
   }
 }
 
+@Slf4j
 public class DwarvenCartOperator extends DwarvenMineWorker {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenCartOperator.class);
 
   @Override
   public void work() {
@@ -228,6 +211,15 @@ subsystem independence and portability.
 * You want to layer your subsystems. Use a facade to define an entry point to each subsystem level. 
 If subsystems are dependent, then you can simplify the dependencies between them by making them 
 communicate with each other solely through their facades.
+
+## Tutorials
+
+*[DigitalOcean](https://www.digitalocean.com/community/tutorials/facade-design-pattern-in-java)
+* [Refactoring Guru](https://refactoring.guru/design-patterns/facade)
+* [GeekforGeeks](https://www.geeksforgeeks.org/facade-design-pattern-introduction/)
+* [Tutorialspoint](https://www.tutorialspoint.com/design_pattern/facade_pattern.htm)
+
+
 
 ## Credits
 

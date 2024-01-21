@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.dao;
 
 import java.sql.Connection;
@@ -34,27 +35,17 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import javax.sql.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * An implementation of {@link CustomerDao} that persists customers in RDBMS.
  */
+@Slf4j
+@RequiredArgsConstructor
 public class DbCustomerDao implements CustomerDao {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DbCustomerDao.class);
-
   private final DataSource dataSource;
-
-  /**
-   * Creates an instance of {@link DbCustomerDao} which uses provided <code>dataSource</code> to
-   * store and retrieve customer information.
-   *
-   * @param dataSource a non-null dataSource.
-   */
-  public DbCustomerDao(DataSource dataSource) {
-    this.dataSource = dataSource;
-  }
 
   /**
    * Get all customers as Java Stream.
@@ -67,7 +58,7 @@ public class DbCustomerDao implements CustomerDao {
   public Stream<Customer> getAll() throws Exception {
     try {
       var connection = getConnection();
-      var statement = connection.prepareStatement("SELECT * FROM CUSTOMERS");
+      var statement = connection.prepareStatement("SELECT * FROM CUSTOMERS"); // NOSONAR
       var resultSet = statement.executeQuery(); // NOSONAR
       return StreamSupport.stream(new Spliterators.AbstractSpliterator<Customer>(Long.MAX_VALUE,
           Spliterator.ORDERED) {

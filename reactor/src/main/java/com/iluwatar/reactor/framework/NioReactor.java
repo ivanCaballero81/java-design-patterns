@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.reactor.framework;
 
 import java.io.IOException;
@@ -32,8 +33,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class acts as Synchronous Event De-multiplexer and Initiation Dispatcher of Reactor pattern.
@@ -50,9 +50,8 @@ import org.slf4j.LoggerFactory;
  * possible edge cases which are required in a real application. This implementation is meant to
  * demonstrate the fundamental concepts that lie behind Reactor pattern.
  */
+@Slf4j
 public class NioReactor {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(NioReactor.class);
 
   private final Selector selector;
   private final Dispatcher dispatcher;
@@ -98,9 +97,11 @@ public class NioReactor {
    * @throws IOException          if any I/O error occurs.
    */
   public void stop() throws InterruptedException, IOException {
-    reactorMain.shutdownNow();
+    reactorMain.shutdown();
     selector.wakeup();
-    reactorMain.awaitTermination(4, TimeUnit.SECONDS);
+    if (!reactorMain.awaitTermination(4, TimeUnit.SECONDS)) {
+      reactorMain.shutdownNow();
+    }
     selector.close();
     LOGGER.info("Reactor stopped");
   }

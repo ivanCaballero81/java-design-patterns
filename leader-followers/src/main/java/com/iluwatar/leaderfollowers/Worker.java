@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,17 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.leaderfollowers;
 
-import java.util.Objects;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Worker class that takes work from work center.
+ */
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Slf4j
 public class Worker implements Runnable {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Worker.class);
-
+  @EqualsAndHashCode.Include
   private final long id;
   private final WorkCenter workCenter;
   private final TaskSet taskSet;
@@ -57,9 +61,11 @@ public class Worker implements Runnable {
       try {
         if (workCenter.getLeader() != null && !workCenter.getLeader().equals(this)) {
           synchronized (workCenter) {
-            workCenter.wait();
+            if (workCenter.getLeader() != null && !workCenter.getLeader().equals(this)) {
+              workCenter.wait();
+              continue;
+            }
           }
-          continue;
         }
         final Task task = taskSet.getTask();
         synchronized (workCenter) {
@@ -72,25 +78,10 @@ public class Worker implements Runnable {
         workCenter.addWorker(this);
       } catch (InterruptedException e) {
         LOGGER.warn("Worker interrupted");
+        Thread.currentThread().interrupt();
         return;
       }
     }
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Worker)) {
-      return false;
-    }
-    var worker = (Worker) o;
-    return id == worker.id;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
 }

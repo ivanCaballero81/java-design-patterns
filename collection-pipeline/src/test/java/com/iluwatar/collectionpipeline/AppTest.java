@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,39 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.collectionpipeline;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tests that Collection Pipeline methods work as expected.
  */
-public class AppTest {
-  private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
+@Slf4j
+class AppTest {
 
   private final List<Car> cars = CarFactory.createCars();
 
   @Test
-  public void testGetModelsAfter2000UsingFor() {
+  void testGetModelsAfter2000UsingFor() {
     var models = ImperativeProgramming.getModelsAfter2000(cars);
     assertEquals(List.of("Avenger", "Wrangler", "Focus", "Cascada"), models);
   }
 
   @Test
-  public void testGetModelsAfter2000UsingPipeline() {
+  void testGetModelsAfter2000UsingPipeline() {
     var models = FunctionalProgramming.getModelsAfter2000(cars);
     assertEquals(List.of("Avenger", "Wrangler", "Focus", "Cascada"), models);
   }
 
   @Test
-  public void testGetGroupingOfCarsByCategory() {
+  void testGetGroupingOfCarsByCategory() {
     var modelsExpected = Map.of(
         Category.CONVERTIBLE, List.of(
             new Car("Buick", "Cascada", 2016, Category.CONVERTIBLE),
@@ -74,7 +74,7 @@ public class AppTest {
   }
 
   @Test
-  public void testGetSedanCarsOwnedSortedByDate() {
+  void testGetSedanCarsOwnedSortedByDate() {
     var john = new Person(cars);
     var modelsExpected = List.of(
         new Car("Dodge", "Avenger", 2010, Category.SEDAN),

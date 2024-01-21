@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.composite;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Date: 12/11/15 - 8:12 PM
  *
  * @author Jeroen Meulemeester
  */
-public class MessengerTest {
+class MessengerTest {
 
   /**
    * The buffer used to capture every write to {@link System#out}
@@ -54,7 +54,7 @@ public class MessengerTest {
    * Inject the mocked std-out {@link PrintStream} into the {@link System} class before each test
    */
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     this.stdOutBuffer = new ByteArrayOutputStream();
     System.setOut(new PrintStream(stdOutBuffer));
   }
@@ -63,7 +63,7 @@ public class MessengerTest {
    * Removed the mocked std-out {@link PrintStream} again from the {@link System} class
    */
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     System.setOut(realStdOut);
   }
 
@@ -71,7 +71,7 @@ public class MessengerTest {
    * Test the message from the orcs
    */
   @Test
-  public void testMessageFromOrcs() {
+  void testMessageFromOrcs() {
     final var messenger = new Messenger();
     testMessage(
         messenger.messageFromOrcs(),
@@ -83,7 +83,7 @@ public class MessengerTest {
    * Test the message from the elves
    */
   @Test
-  public void testMessageFromElves() {
+  void testMessageFromElves() {
     final var messenger = new Messenger();
     testMessage(
         messenger.messageFromElves(),

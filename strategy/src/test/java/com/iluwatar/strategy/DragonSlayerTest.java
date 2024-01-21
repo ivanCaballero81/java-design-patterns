@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.strategy;
 
 import static org.mockito.Mockito.mock;
@@ -34,13 +35,13 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class DragonSlayerTest {
+class DragonSlayerTest {
 
   /**
    * Verify if the dragon slayer uses the strategy during battle.
    */
   @Test
-  public void testGoToBattle() {
+  void testGoToBattle() {
     final var strategy = mock(DragonSlayingStrategy.class);
     final var dragonSlayer = new DragonSlayer(strategy);
 
@@ -53,7 +54,7 @@ public class DragonSlayerTest {
    * Verify if the dragon slayer uses the new strategy during battle after a change of strategy.
    */
   @Test
-  public void testChangeStrategy() {
+  void testChangeStrategy() {
     final var initialStrategy = mock(DragonSlayingStrategy.class);
     final var dragonSlayer = new DragonSlayer(initialStrategy);
 

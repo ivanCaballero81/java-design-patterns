@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.roleobject;
 
 import static com.iluwatar.roleobject.Role.Borrower;
 import static com.iluwatar.roleobject.Role.Investor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Role Object pattern suggests to model context-specific views of an object as separate role
@@ -56,9 +56,8 @@ import org.slf4j.LoggerFactory;
  * to return a reference to the corresponding object. The loan application may now use this
  * reference to call Borrower-specific operations.
  */
+@Slf4j
 public class ApplicationRoleObject {
-
-  private static final Logger logger = LoggerFactory.getLogger(Role.class);
 
   /**
    * Main entry point.
@@ -68,12 +67,12 @@ public class ApplicationRoleObject {
   public static void main(String[] args) {
     var customer = Customer.newCustomer(Borrower, Investor);
 
-    logger.info(" the new customer created : {}", customer);
+    LOGGER.info(" the new customer created : {}", customer);
 
     var hasBorrowerRole = customer.hasRole(Borrower);
-    logger.info(" customer has a borrowed role - {}", hasBorrowerRole);
+    LOGGER.info(" customer has a borrowed role - {}", hasBorrowerRole);
     var hasInvestorRole = customer.hasRole(Investor);
-    logger.info(" customer has an investor role - {}", hasInvestorRole);
+    LOGGER.info(" customer has an investor role - {}", hasInvestorRole);
 
     customer.getRole(Investor, InvestorRole.class)
         .ifPresent(inv -> {
@@ -85,10 +84,10 @@ public class ApplicationRoleObject {
 
     customer.getRole(Investor, InvestorRole.class)
         .map(InvestorRole::invest)
-        .ifPresent(logger::info);
+        .ifPresent(LOGGER::info);
 
     customer.getRole(Borrower, BorrowerRole.class)
         .map(BorrowerRole::borrow)
-        .ifPresent(logger::info);
+        .ifPresent(LOGGER::info);
   }
 }

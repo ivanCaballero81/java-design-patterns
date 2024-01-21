@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.factorykit.factorykit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,12 +38,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Factory Kit Pattern
  */
-public class FactoryKitTest {
+class FactoryKitTest {
 
   private WeaponFactory factory;
 
   @BeforeEach
-  public void init() {
+  void init() {
     factory = WeaponFactory.factory(builder -> {
       builder.add(WeaponType.SPEAR, Spear::new);
       builder.add(WeaponType.AXE, Axe::new);
@@ -55,7 +56,7 @@ public class FactoryKitTest {
    * {@link Spear}
    */
   @Test
-  public void testSpearWeapon() {
+  void testSpearWeapon() {
     var weapon = factory.create(WeaponType.SPEAR);
     verifyWeapon(weapon, Spear.class);
   }
@@ -65,7 +66,7 @@ public class FactoryKitTest {
    * {@link Axe}
    */
   @Test
-  public void testAxeWeapon() {
+  void testAxeWeapon() {
     var weapon = factory.create(WeaponType.AXE);
     verifyWeapon(weapon, Axe.class);
   }
@@ -76,7 +77,7 @@ public class FactoryKitTest {
    * {@link Sword}
    */
   @Test
-  public void testWeapon() {
+  void testWeapon() {
     var weapon = factory.create(WeaponType.SWORD);
     verifyWeapon(weapon, Sword.class);
   }

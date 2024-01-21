@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.strangler;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test methods in OldArithmetic
@@ -34,12 +35,12 @@ class OldArithmeticTest {
   private static final OldArithmetic arithmetic = new OldArithmetic(new OldSource());
 
   @Test
-  public void testSum() {
+  void testSum() {
     assertEquals(0, arithmetic.sum(-1, 0, 1));
   }
 
   @Test
-  public void testMul() {
+  void testMul() {
     assertEquals(0, arithmetic.mul(-1, 0, 1));
   }
 }

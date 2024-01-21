@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.updatemethod;
 
 /**
@@ -51,9 +52,9 @@ public class Skeleton extends Entity {
    * Constructor of Skeleton.
    *
    * @param id id of skeleton
-   * @param postition position of skeleton
+   * @param position position of skeleton
    */
-  public Skeleton(int id, int postition) {
+  public Skeleton(int id, int position) {
     super(id);
     this.position = position;
     patrollingLeft = false;
@@ -72,7 +73,7 @@ public class Skeleton extends Entity {
         patrollingLeft = true;
       }
     }
-    logger.info("Skeleton " + id + " is on position " + position + ".");
+    logger.info("Skeleton {} is on position {}.", id, position);
   }
 }
 

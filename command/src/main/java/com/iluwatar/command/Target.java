@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,41 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.command;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base class for spell targets.
  */
+@Setter
+@Slf4j
+@Getter
 public abstract class Target {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(Target.class);
 
   private Size size;
 
   private Visibility visibility;
-
-  public Size getSize() {
-    return size;
-  }
-
-  public void setSize(Size size) {
-    this.size = size;
-  }
-
-  public Visibility getVisibility() {
-    return visibility;
-  }
-
-  public void setVisibility(Visibility visibility) {
-    this.visibility = visibility;
-  }
-
-  @Override
-  public abstract String toString();
 
   /**
    * Print status.

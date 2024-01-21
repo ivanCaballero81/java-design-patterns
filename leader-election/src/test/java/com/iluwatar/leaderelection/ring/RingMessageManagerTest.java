@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.leaderelection.ring;
 
-import com.iluwatar.leaderelection.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.lang.reflect.Field;
+import com.iluwatar.leaderelection.AbstractInstance;
+import com.iluwatar.leaderelection.Instance;
+import com.iluwatar.leaderelection.Message;
+import com.iluwatar.leaderelection.MessageType;
 import java.util.Map;
 import java.util.Queue;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * RingMessageManager unit test.
  */
-public class RingMessageManagerTest {
+class RingMessageManagerTest {
 
   @Test
-  public void testSendHeartbeatMessage() {
+  void testSendHeartbeatMessage() {
     var instance1 = new RingInstance(null, 1, 1);
     Map<Integer, Instance> instanceMap = Map.of(1, instance1);
     var messageManager = new RingMessageManager(instanceMap);
@@ -46,7 +50,7 @@ public class RingMessageManagerTest {
   }
 
   @Test
-  public void testSendElectionMessage() {
+  void testSendElectionMessage() {
     try {
       var instance1 = new RingInstance(null, 1, 1);
       var instance2 = new RingInstance(null, 1, 2);
@@ -68,7 +72,7 @@ public class RingMessageManagerTest {
   }
 
   @Test
-  public void testSendLeaderMessage() {
+  void testSendLeaderMessage() {
     try {
       var instance1 = new RingInstance(null, 1, 1);
       var instance2 = new RingInstance(null, 1, 2);
@@ -89,7 +93,7 @@ public class RingMessageManagerTest {
   }
 
   @Test
-  public void testSendHeartbeatInvokeMessage() {
+  void testSendHeartbeatInvokeMessage() {
     try {
       var instance1 = new RingInstance(null, 1, 1);
       var instance2 = new RingInstance(null, 1, 2);

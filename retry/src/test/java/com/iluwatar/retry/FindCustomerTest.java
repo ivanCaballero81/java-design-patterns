@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.retry;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,22 +35,20 @@ import org.junit.jupiter.api.Test;
  *
  * @author George Aristy (george.aristy@gmail.com)
  */
-public class FindCustomerTest {
+class FindCustomerTest {
   /**
    * Returns the given result with no exceptions.
    */
   @Test
-  public void noExceptions() throws Exception {
+  void noExceptions() throws Exception {
     assertThat(new FindCustomer("123").perform(), is("123"));
   }
 
   /**
    * Throws the given exception.
-   *
-   * @throws Exception the expected exception
    */
   @Test
-  public void oneException() {
+  void oneException() {
     var findCustomer = new FindCustomer("123", new BusinessException("test"));
     assertThrows(BusinessException.class, findCustomer::perform);
   }
@@ -60,7 +59,7 @@ public class FindCustomerTest {
    * @throws Exception not an expected exception
    */
   @Test
-  public void resultAfterExceptions() throws Exception {
+  void resultAfterExceptions() throws Exception {
     final var op = new FindCustomer(
         "123",
         new CustomerNotFoundException("not found"),

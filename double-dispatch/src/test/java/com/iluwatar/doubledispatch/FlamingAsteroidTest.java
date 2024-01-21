@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.doubledispatch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +35,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
+class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
 
   @Override
   final FlamingAsteroid getTestedObject() {
@@ -45,7 +46,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
    * Test the constructor parameters
    */
   @Test
-  public void testConstructor() {
+  void testConstructor() {
     final var asteroid = new FlamingAsteroid(1, 2, 3, 4);
     assertEquals(1, asteroid.getLeft());
     assertEquals(2, asteroid.getTop());
@@ -60,7 +61,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
    * Test what happens we collide with an asteroid
    */
   @Test
-  public void testCollideFlamingAsteroid() {
+  void testCollideFlamingAsteroid() {
     testCollision(
         new FlamingAsteroid(1, 2, 3, 4),
         false, true,
@@ -72,7 +73,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
    * Test what happens we collide with an meteoroid
    */
   @Test
-  public void testCollideMeteoroid() {
+  void testCollideMeteoroid() {
     testCollision(
         new Meteoroid(1, 1, 3, 4),
         false, false,
@@ -84,7 +85,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
    * Test what happens we collide with ISS
    */
   @Test
-  public void testCollideSpaceStationIss() {
+  void testCollideSpaceStationIss() {
     testCollision(
         new SpaceStationIss(1, 1, 3, 4),
         true, true,
@@ -96,7 +97,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
    * Test what happens we collide with MIR
    */
   @Test
-  public void testCollideSpaceStationMir() {
+  void testCollideSpaceStationMir() {
     testCollision(
         new SpaceStationMir(1, 1, 3, 4),
         true, true,

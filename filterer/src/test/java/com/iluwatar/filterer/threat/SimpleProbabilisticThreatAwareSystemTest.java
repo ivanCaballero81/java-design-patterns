@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,16 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.filterer.threat;
-
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
 class SimpleProbabilisticThreatAwareSystemTest {
+
   @Test
   void shouldFilterByProbability() {
     //given
@@ -38,11 +39,11 @@ class SimpleProbabilisticThreatAwareSystemTest {
     List<ProbableThreat> probableThreats = List.of(trojan, rootkit);
 
     var simpleProbabilisticThreatAwareSystem =
-            new SimpleProbabilisticThreatAwareSystem("System-1", probableThreats);
+        new SimpleProbabilisticThreatAwareSystem("System-1", probableThreats);
 
     //when
     var filtered = simpleProbabilisticThreatAwareSystem.filtered()
-            .by(probableThreat -> Double.compare(probableThreat.probability(), 0.99) == 0);
+        .by(probableThreat -> Double.compare(probableThreat.probability(), 0.99) == 0);
 
     //then
     assertEquals(filtered.threats().size(), 1);

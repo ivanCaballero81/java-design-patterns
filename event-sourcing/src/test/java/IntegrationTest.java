@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +31,7 @@ import com.iluwatar.event.sourcing.event.AccountCreateEvent;
 import com.iluwatar.event.sourcing.event.MoneyDepositEvent;
 import com.iluwatar.event.sourcing.event.MoneyTransferEvent;
 import com.iluwatar.event.sourcing.processor.DomainEventProcessor;
+import com.iluwatar.event.sourcing.processor.JsonFileJournal;
 import com.iluwatar.event.sourcing.state.AccountAggregate;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -36,11 +39,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Intergartion Test for Event Sourcing state recovery
+ * Integration Test for Event-Sourcing state recovery
  * <p>
  * Created by Serdar Hamzaogullari on 19.08.2017.
  */
-public class IntegrationTest {
+class IntegrationTest {
 
   /**
    * The Domain event processor.
@@ -51,15 +54,15 @@ public class IntegrationTest {
    * Initialize.
    */
   @BeforeEach
-  public void initialize() {
-    eventProcessor = new DomainEventProcessor();
+  void initialize() {
+    eventProcessor = new DomainEventProcessor(new JsonFileJournal());
   }
 
   /**
    * Test state recovery.
    */
   @Test
-  public void testStateRecovery() {
+  void testStateRecovery() {
     eventProcessor.reset();
 
     eventProcessor.process(new AccountCreateEvent(
@@ -83,7 +86,7 @@ public class IntegrationTest {
 
     AccountAggregate.resetState();
 
-    eventProcessor = new DomainEventProcessor();
+    eventProcessor = new DomainEventProcessor(new JsonFileJournal());
     eventProcessor.recover();
 
     var accountOfDaenerysAfterShotDown = AccountAggregate.getAccount(ACCOUNT_OF_DAENERYS);

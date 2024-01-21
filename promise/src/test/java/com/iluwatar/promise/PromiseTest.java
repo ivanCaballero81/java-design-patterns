@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.promise;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -36,7 +37,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,19 +44,19 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests Promise class.
  */
-public class PromiseTest {
+class PromiseTest {
 
   private Executor executor;
   private Promise<Integer> promise;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     executor = Executors.newSingleThreadExecutor();
     promise = new Promise<>();
   }
 
   @Test
-  public void promiseIsFulfilledWithTheResultantValueOfExecutingTheTask()
+  void promiseIsFulfilledWithTheResultantValueOfExecutingTheTask()
       throws InterruptedException, ExecutionException {
     promise.fulfillInAsync(new NumberCrunchingTask(), executor);
 
@@ -66,7 +66,7 @@ public class PromiseTest {
   }
 
   @Test
-  public void promiseIsFulfilledWithAnExceptionIfTaskThrowsAnException()
+  void promiseIsFulfilledWithAnExceptionIfTaskThrowsAnException()
       throws InterruptedException {
     testWaitingForeverForPromiseToBeFulfilled();
     testWaitingSomeTimeForPromiseToBeFulfilled();
@@ -120,7 +120,7 @@ public class PromiseTest {
   }
 
   @Test
-  public void dependentPromiseIsFulfilledAfterTheConsumerConsumesTheResultOfThisPromise()
+  void dependentPromiseIsFulfilledAfterTheConsumerConsumesTheResultOfThisPromise()
       throws InterruptedException, ExecutionException {
     var dependentPromise = promise
         .fulfillInAsync(new NumberCrunchingTask(), executor)
@@ -132,7 +132,7 @@ public class PromiseTest {
   }
 
   @Test
-  public void dependentPromiseIsFulfilledWithAnExceptionIfConsumerThrowsAnException()
+  void dependentPromiseIsFulfilledWithAnExceptionIfConsumerThrowsAnException()
       throws InterruptedException {
     var dependentPromise = promise
         .fulfillInAsync(new NumberCrunchingTask(), executor)
@@ -160,7 +160,7 @@ public class PromiseTest {
   }
 
   @Test
-  public void dependentPromiseIsFulfilledAfterTheFunctionTransformsTheResultOfThisPromise()
+  void dependentPromiseIsFulfilledAfterTheFunctionTransformsTheResultOfThisPromise()
       throws InterruptedException, ExecutionException {
     var dependentPromise = promise
         .fulfillInAsync(new NumberCrunchingTask(), executor)
@@ -176,7 +176,7 @@ public class PromiseTest {
   }
 
   @Test
-  public void dependentPromiseIsFulfilledWithAnExceptionIfTheFunctionThrowsException()
+  void dependentPromiseIsFulfilledWithAnExceptionIfTheFunctionThrowsException()
       throws InterruptedException {
     var dependentPromise = promise
         .fulfillInAsync(new NumberCrunchingTask(), executor)
@@ -204,17 +204,18 @@ public class PromiseTest {
   }
 
   @Test
-  public void fetchingAnAlreadyFulfilledPromiseReturnsTheFulfilledValueImmediately()
+  void fetchingAnAlreadyFulfilledPromiseReturnsTheFulfilledValueImmediately()
       throws ExecutionException {
     var promise = new Promise<Integer>();
     promise.fulfill(NumberCrunchingTask.CRUNCHED_NUMBER);
 
-    promise.get(1000, TimeUnit.SECONDS);
+    Integer result = promise.get(1000, TimeUnit.SECONDS);
+    assertEquals(NumberCrunchingTask.CRUNCHED_NUMBER, result);
   }
 
   @SuppressWarnings("unchecked")
   @Test
-  public void exceptionHandlerIsCalledWhenPromiseIsFulfilledExceptionally() {
+  void exceptionHandlerIsCalledWhenPromiseIsFulfilledExceptionally() {
     var promise = new Promise<>();
     var exceptionHandler = mock(Consumer.class);
     promise.onError(exceptionHandler);

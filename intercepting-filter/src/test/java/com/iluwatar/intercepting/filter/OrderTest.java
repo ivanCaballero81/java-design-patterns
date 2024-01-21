@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.intercepting.filter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,40 +33,40 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jeroen Meulemeester
  */
-public class OrderTest {
+class OrderTest {
 
   private static final String EXPECTED_VALUE = "test";
 
   @Test
-  public void testSetName() {
+  void testSetName() {
     final var order = new Order();
     order.setName(EXPECTED_VALUE);
     assertEquals(EXPECTED_VALUE, order.getName());
   }
 
   @Test
-  public void testSetContactNumber() {
+  void testSetContactNumber() {
     final var order = new Order();
     order.setContactNumber(EXPECTED_VALUE);
     assertEquals(EXPECTED_VALUE, order.getContactNumber());
   }
 
   @Test
-  public void testSetAddress() {
+  void testSetAddress() {
     final var order = new Order();
     order.setAddress(EXPECTED_VALUE);
     assertEquals(EXPECTED_VALUE, order.getAddress());
   }
 
   @Test
-  public void testSetDepositNumber() {
+  void testSetDepositNumber() {
     final var order = new Order();
     order.setDepositNumber(EXPECTED_VALUE);
     assertEquals(EXPECTED_VALUE, order.getDepositNumber());
   }
 
   @Test
-  public void testSetOrder() {
+  void testSetOrder() {
     final var order = new Order();
     order.setOrderItem(EXPECTED_VALUE);
     assertEquals(EXPECTED_VALUE, order.getOrderItem());

@@ -1,6 +1,8 @@
 /*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright © 2014-2019 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.iluwatar.threadpool;
 
 import static java.time.Duration.ofMillis;
@@ -83,7 +84,7 @@ public abstract class TaskTest<T extends Task> {
    * threads
    */
   @Test
-  public void testIdGeneration() throws Exception {
+  void testIdGeneration() throws Exception {
     assertTimeout(ofMillis(10000), () -> {
       final var service = Executors.newFixedThreadPool(THREAD_COUNT);
 
@@ -95,7 +96,7 @@ public abstract class TaskTest<T extends Task> {
           .stream()
           .map(TaskTest::get)
           .filter(Objects::nonNull)
-          .collect(Collectors.toList());
+          .toList();
 
       service.shutdownNow();
 
@@ -113,7 +114,7 @@ public abstract class TaskTest<T extends Task> {
    * a given number of times
    */
   @Test
-  public void testTimeMs() {
+  void testTimeMs() {
     for (var i = 0; i < 10; i++) {
       assertEquals(this.expectedExecutionTime * i, this.factory.apply(i).getTimeMs());
     }
@@ -123,7 +124,7 @@ public abstract class TaskTest<T extends Task> {
    * Verify if the task has some sort of {@link T#toString()}, different from 'null'
    */
   @Test
-  public void testToString() {
+  void testToString() {
     assertNotNull(this.factory.apply(0).toString());
   }
 
