@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTableModuleTest {
-  private static final String DB_URL = "jdbc:h2:~/test";
+  private static final String DB_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
 
   private static DataSource createDataSource() {
     var dataSource = new JdbcDataSource();
@@ -86,9 +86,7 @@ class UserTableModuleTest {
     var userTableModule = new UserTableModule(dataSource);
     var user = new User(1, "123456", "123456");
     userTableModule.registerUser(user);
-    assertThrows(SQLException.class, () -> {
-      userTableModule.registerUser(user);
-    });
+    assertThrows(SQLException.class, () -> userTableModule.registerUser(user));
   }
 
   @Test

@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Transaction Script (TS) is one of the simplest domain logic pattern.
- * It needs less work to implement than other domain logic patterns and therefore
+ * It needs less work to implement than other domain logic patterns, and therefore
  * it’s perfect fit for smaller applications that don't need big architecture behind them.
  *
  * <p>In this example we will use the TS pattern to implement booking and cancellation
@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public class App {
 
-  private static final String H2_DB_URL = "jdbc:h2:~/test";
+  private static final String H2_DB_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   /**

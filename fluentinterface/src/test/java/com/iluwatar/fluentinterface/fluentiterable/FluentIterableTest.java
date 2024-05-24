@@ -39,9 +39,8 @@ import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
 /**
- * Date: 12/12/15 - 7:00 PM
+ * FluentIterableTest
  *
- * @author Jeroen Meulemeester
  */
 public abstract class FluentIterableTest {
 
@@ -191,7 +190,7 @@ public abstract class FluentIterableTest {
   }
 
   @Test
-  void testSpliterator() throws Exception {
+  void testSpliterator() {
     final var integers = List.of(1, 2, 3);
     final var split = createFluentIterable(integers).spliterator();
     assertNotNull(split);
