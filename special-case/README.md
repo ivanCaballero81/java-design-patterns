@@ -1,31 +1,33 @@
 ---
-title: Special Case
+title: "Special Case Pattern in Java: Simplifying Exception Handling with Predefined Cases"
+shortTitle: Special Case
+description: "Explore the Special Case design pattern in Java for handling exceptional cases without cluttering the main code logic. Learn its applicability, real-world examples, and benefits for clean, maintainable code."
 category: Structural
 language: en
 tag:
-    - Abstraction
-    - Code simplification
-    - Decoupling
-    - Error handling
-    - Polymorphism
-    - Runtime
+  - Abstraction
+  - Code simplification
+  - Decoupling
+  - Error handling
+  - Polymorphism
+  - Runtime
 ---
 
 ## Also known as
 
 * Exceptional Case
 
-## Intent
+## Intent of Special Case Design Pattern
 
-To handle exceptional cases or specific conditions without cluttering the main code logic.
+The Special Case design pattern in Java offers a robust framework for addressing unique or exceptional conditions in software development without complicating the main codebase.
 
-## Explanation
+## Detailed Explanation of Special Case Pattern with Real-World Examples
 
-Real world example
+Real-world example
 
 > Consider a toll booth system on a highway. Normally, vehicles pass through the booth, and the system charges a toll based on the vehicle type. However, there are special cases: emergency vehicles like ambulances and fire trucks, which should not be charged.
 >
-> In this scenario, the "Special Case" design pattern can be applied by creating a class for the toll booth system that handles regular vehicles and another for emergency vehicles. The emergency vehicle class would override the toll calculation method to ensure no charge is applied, encapsulating this special behavior without cluttering the main toll calculation logic with conditional checks. This keeps the codebase clean and ensures the special case is handled consistently.
+> For instance, in a toll management system, the Special Case pattern facilitates separate handling for emergency vehicles, ensuring a streamlined toll process without additional checks. The emergency vehicle class would override the toll calculation method to ensure no charge is applied, encapsulating this special behavior without cluttering the main toll calculation logic with conditional checks. This keeps the codebase clean and ensures the special case is handled consistently.
 
 In plain words
 
@@ -35,7 +37,11 @@ In [Patterns of Enterprise Application Architecture](https://amzn.to/3WfKBPR) Ma
 
 > If you’ll pardon the unresistable pun, I see [Null Object](https://java-design-patterns.com/patterns/null-object/) as special case of Special Case.
 
-**Programmatic Example**
+Sequnce diagram
+
+![Special Case sequence diagram](./etc/special-case-sequence-diagram.png)
+
+## Programmatic Example of Special Case Pattern in Java
 
 The Special Case Pattern is a software design pattern that is used to handle a specific, often uncommon, case separately from the general case in the code. This pattern is useful when a class has behavior that requires conditional logic based on its state. Instead of cluttering the class with conditional logic, we can encapsulate the special behavior in a subclass.
 
@@ -44,7 +50,6 @@ In an e-commerce system, the presentation layer relies on the application layer 
 The `Db` class is a singleton that holds data for users, accounts, and products. It provides methods to seed data into the database and find data in the database.
 
 ```java
-
 @RequiredArgsConstructor
 @Getter
 public class Db {
@@ -88,7 +93,9 @@ Next, here are the presentation layer, the receipt view model interface and its 
 public interface ReceiptViewModel {
     void show();
 }
+```
 
+```java
 @RequiredArgsConstructor
 @Getter
 public class ReceiptDto implements ReceiptViewModel {
@@ -114,7 +121,9 @@ public class DownForMaintenance implements ReceiptViewModel {
         LOGGER.info("Down for maintenance");
     }
 }
+```
 
+```java
 public class InvalidUser implements ReceiptViewModel {
     private static final Logger LOGGER = LoggerFactory.getLogger(InvalidUser.class);
 
@@ -129,7 +138,9 @@ public class InvalidUser implements ReceiptViewModel {
         LOGGER.info("Invalid user: " + userName);
     }
 }
+```
 
+```java
 public class OutOfStock implements ReceiptViewModel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OutOfStock.class);
@@ -147,7 +158,9 @@ public class OutOfStock implements ReceiptViewModel {
         LOGGER.info("Out of stock: " + itemName + " for user = " + userName + " to buy");
     }
 }
+```
 
+```java
 public class InsufficientFunds implements ReceiptViewModel {
     private static final Logger LOGGER = LoggerFactory.getLogger(InsufficientFunds.class);
 
@@ -169,33 +182,49 @@ public class InsufficientFunds implements ReceiptViewModel {
 }
 ```
 
-Here is the main function of the application that executes the different scenarios.
+Here is the `App` and its `main` function that executes the different scenarios.
 
-```
-LOGGER.info("Db seeding: " + "1 user: {\"ignite1771\", amount = 1000.0}, " + "2 products: {\"computer\": price = 800.0, \"car\": price = 20000.0}");
-Db.getInstance().seedUser(TEST_USER_1, 1000.0);
-Db.getInstance().seedItem(ITEM_COMPUTER, 800.0);
-Db.getInstance().seedItem(ITEM_CAR, 20000.0);
+```java
+public class App {
 
-final var applicationServices = new ApplicationServicesImpl();
-ReceiptViewModel receipt;
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-LOGGER.info(LOGGER_STRING, TEST_USER_2, ITEM_TV);
-receipt = applicationServices.loggedInUserPurchase(TEST_USER_2, ITEM_TV);
-receipt.show();
-MaintenanceLock.getInstance().setLock(false);
-LOGGER.info(LOGGER_STRING, TEST_USER_2, ITEM_TV);
-receipt = applicationServices.loggedInUserPurchase(TEST_USER_2, ITEM_TV);
-receipt.show();
-LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_TV);
-receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_TV);
-receipt.show();
-LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_CAR);
-receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_CAR);
-receipt.show();
-LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_COMPUTER);
-receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_COMPUTER);
-receipt.show();
+    private static final String LOGGER_STRING = "[REQUEST] User: {} buy product: {}";
+    private static final String TEST_USER_1 = "ignite1771";
+    private static final String TEST_USER_2 = "abc123";
+    private static final String ITEM_TV = "tv";
+    private static final String ITEM_CAR = "car";
+    private static final String ITEM_COMPUTER = "computer";
+
+    public static void main(String[] args) {
+        // DB seeding
+        LOGGER.info("Db seeding: " + "1 user: {\"ignite1771\", amount = 1000.0}, "
+                + "2 products: {\"computer\": price = 800.0, \"car\": price = 20000.0}");
+        Db.getInstance().seedUser(TEST_USER_1, 1000.0);
+        Db.getInstance().seedItem(ITEM_COMPUTER, 800.0);
+        Db.getInstance().seedItem(ITEM_CAR, 20000.0);
+
+        final var applicationServices = new ApplicationServicesImpl();
+        ReceiptViewModel receipt;
+
+        LOGGER.info(LOGGER_STRING, TEST_USER_2, ITEM_TV);
+        receipt = applicationServices.loggedInUserPurchase(TEST_USER_2, ITEM_TV);
+        receipt.show();
+        MaintenanceLock.getInstance().setLock(false);
+        LOGGER.info(LOGGER_STRING, TEST_USER_2, ITEM_TV);
+        receipt = applicationServices.loggedInUserPurchase(TEST_USER_2, ITEM_TV);
+        receipt.show();
+        LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_TV);
+        receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_TV);
+        receipt.show();
+        LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_CAR);
+        receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_CAR);
+        receipt.show();
+        LOGGER.info(LOGGER_STRING, TEST_USER_1, ITEM_COMPUTER);
+        receipt = applicationServices.loggedInUserPurchase(TEST_USER_1, ITEM_COMPUTER);
+        receipt.show();
+    }
+}
 ```
 
 Here is the output from running the example.
@@ -217,24 +246,22 @@ Here is the output from running the example.
 
 In conclusion, the Special Case Pattern helps to keep the code clean and easy to understand by separating the special case from the general case. It also promotes code reuse and makes the code easier to maintain.
 
-## Class diagram
-
-![Special Case](./etc/special_case_urm.png "Special Case")
-
-## Applicability
+## When to Use the Special Case Pattern in Java
 
 * Use when you want to encapsulate and handle special cases or error conditions in a manner that avoids conditional logic scattered throughout the main codebase.
 * Useful in scenarios where certain operations have known exceptional cases that require different handling.
 
-## Known Uses
+## Real-World Applications of Special Case Pattern in Java
 
 * Implementing null object patterns to avoid null checks.
 * Handling specific business rules or validation logic in e-commerce applications.
 * Managing different file formats or protocols in data processing applications.
 
-## Consequences
+## Benefits and Trade-offs of Special Case Pattern
 
 Benefits:
+
+Adopting the Special Case design pattern
 
 * Simplifies the main logic by removing special case handling from the core algorithms.
 * Enhances code readability and maintainability by isolating special cases.
@@ -244,15 +271,15 @@ Trade-offs:
 * May introduce additional classes or interfaces, increasing the number of components in the system.
 * Requires careful design to ensure that special cases are correctly encapsulated and do not introduce unexpected behaviors.
 
-## Related Patterns
+## Related Java Design Patterns
 
+* [Decorator](https://java-design-patterns.com/patterns/decorator/): Can be used to add special case behavior to objects dynamically without modifying their code.
 * [Null Object](https://java-design-patterns.com/patterns/null-object/): Used to provide a default behavior for null references, which is a specific type of special case.
 * [Strategy](https://java-design-patterns.com/patterns/strategy/): Allows dynamic switching of special case behaviors by encapsulating them in different strategy classes.
-* [Decorator](https://java-design-patterns.com/patterns/decorator/): Can be used to add special case behavior to objects dynamically without modifying their code.
 
-## Credits
+## References and Credits
 
 * [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/3w0pvKI)
 * [Effective Java](https://amzn.to/4cGk2Jz)
 * [Patterns of Enterprise Application Architecture](https://amzn.to/3WfKBPR)
-* [Special Case - Martin Fowler](https://www.martinfowler.com/eaaCatalog/specialCase.html)
+* [Special Case (Martin Fowler)](https://www.martinfowler.com/eaaCatalog/specialCase.html)

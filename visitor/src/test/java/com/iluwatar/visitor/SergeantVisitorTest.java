@@ -24,24 +24,11 @@
  */
 package com.iluwatar.visitor;
 
-import java.util.Optional;
-
-/**
- * SergeantVisitorTest
- *
- */
+/** SergeantVisitorTest */
 class SergeantVisitorTest extends VisitorTest<SergeantVisitor> {
 
-  /**
-   * Create a new test instance for the given visitor.
-   */
+  /** Create a new test instance for the given visitor. */
   public SergeantVisitorTest() {
-    super(
-        new SergeantVisitor(),
-        Optional.empty(),
-        Optional.of("Hello sergeant"),
-        Optional.empty()
-    );
+    super(new SergeantVisitor(), null, ("Hello sergeant"), null);
   }
-
 }

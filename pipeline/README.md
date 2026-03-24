@@ -1,14 +1,16 @@
 ---
-title: Pipeline
+title: "Pipeline Pattern in Java: Streamlining Data Processing with Modular Components"
+shortTitle: Pipeline
+description: "Master the Pipeline design pattern in Java with our comprehensive guide. Learn how to implement data processing in discrete stages for improved code scalability and flexibility. Ideal for developers looking to advance their software engineering skills."
 category: Behavioral
 language: en
 tag:
-    - API design
-    - Data processing
-    - Decoupling
-    - Extensibility
-    - Functional decomposition
-    - Scalability
+  - API design
+  - Data processing
+  - Decoupling
+  - Extensibility
+  - Functional decomposition
+  - Scalability
 ---
 
 ## Also known as
@@ -16,17 +18,15 @@ tag:
 * Chain of Operations
 * Processing Pipeline
 
-## Intent
+## Intent of Pipeline Design Pattern
 
-The Pipeline design pattern is intended to allow data processing in discrete stages, where each stage is represented by a different component and the output of one stage serves as the input for the next.
+The Pipeline design pattern in Java is engineered to facilitate data processing across discrete stages, enhancing modular development and operational efficiency.
 
-## Explanation
+## Detailed Explanation of Pipeline Pattern with Real-World Examples
 
-The Pipeline pattern uses ordered stages to process a sequence of input values. Each implemented task is represented by a stage of the pipeline. You can think of pipelines as similar to assembly lines in a factory, where each item in the assembly line is constructed in stages. The partially assembled item is passed from one assembly stage to another. The outputs of the assembly line occur in the same order as that of the inputs.
+Real-world example
 
-Real world example
-
-> A real-world analogous example of the Pipeline design pattern is an **assembly line in a car manufacturing plant**.
+> A practical example of the Java Pipeline design pattern can be seen in assembly lines, such as those in car manufacturing, illustrating its efficiency and scalability.
 >
 > In this analogy, the car manufacturing process is divided into several discrete stages, each stage handling a specific part of the car assembly. For example:
 >
@@ -36,7 +36,7 @@ Real world example
 > 4. **Interior Assembly:** The interior, including seats and dashboard, is installed.
 > 5. **Quality Control:** The finished car is inspected for defects.
 >
->Each stage operates independently and sequentially, where the output of one stage (e.g., a partially assembled car) becomes the input for the next stage. This modular approach allows for easy maintenance, scalability (e.g., adding more workers to a stage), and flexibility (e.g., replacing a stage with a more advanced version). Just like in a software pipeline, changes in one stage do not affect the others, facilitating continuous improvements and efficient production.
+> In the Java Pipeline pattern, each stage functions independently and sequentially, ensuring smooth data flow and easy modifications. The output of one stage (e.g., a partially assembled car) becomes the input for the next stage. This modular approach allows for easy maintenance, scalability (e.g., adding more workers to a stage), and flexibility (e.g., replacing a stage with a more advanced version). Just like in a software pipeline, changes in one stage do not affect the others, facilitating continuous improvements and efficient production.
 
 In plain words
 
@@ -46,7 +46,11 @@ Wikipedia says
 
 > In software engineering, a pipeline consists of a chain of processing elements (processes, threads, coroutines, functions, etc.), arranged so that the output of each element is the input of the next; the name is by analogy to a physical pipeline.
 
-**Programmatic Example**
+Flowchart
+
+![Pipeline flowchart](./etc/pipeline-flowchart.png)
+
+## Programmatic Example of Pipeline Pattern in Java
 
 Let's create a string processing pipeline example. The stages of our pipeline are called `Handler`s.
 
@@ -96,15 +100,30 @@ class Pipeline<I, O> {
 And here's the `Pipeline` in action processing the string.
 
 ```java
-var filters = new Pipeline<>(new RemoveAlphabetsHandler()).addHandler(new RemoveDigitsHandler()).addHandler(new ConvertToCharArrayHandler());
-filters.execute("GoYankees123!");
+public static void main(String[] args) {
+    LOGGER.info("Creating pipeline");
+    var filters = new Pipeline<>(new RemoveAlphabetsHandler())
+            .addHandler(new RemoveDigitsHandler())
+            .addHandler(new ConvertToCharArrayHandler());
+    var input = "GoYankees123!";
+    LOGGER.info("Executing pipeline with input: {}", input);
+    var output = filters.execute(input);
+    LOGGER.info("Pipeline output: {}", output);
+}
 ```
 
-## Class diagram
+Console output:
 
-![Pipeline](./etc/pipeline.urm.png "Pipeline pattern class diagram")
+```
+07:34:27.069 [main] INFO com.iluwatar.pipeline.App -- Creating pipeline
+07:34:27.072 [main] INFO com.iluwatar.pipeline.App -- Executing pipeline with input: GoYankees123!
+07:34:27.074 [main] INFO com.iluwatar.pipeline.RemoveAlphabetsHandler -- Current handler: class com.iluwatar.pipeline.RemoveAlphabetsHandler, input is GoYankees123! of type class java.lang.String, output is 123!, of type class java.lang.String
+07:34:27.075 [main] INFO com.iluwatar.pipeline.RemoveDigitsHandler -- Current handler: class com.iluwatar.pipeline.RemoveDigitsHandler, input is 123! of type class java.lang.String, output is !, of type class java.lang.String
+07:34:27.075 [main] INFO com.iluwatar.pipeline.ConvertToCharArrayHandler -- Current handler: class com.iluwatar.pipeline.ConvertToCharArrayHandler, input is ! of type class java.lang.String, output is [!], of type class [Ljava.lang.Character;
+07:34:27.075 [main] INFO com.iluwatar.pipeline.App -- Pipeline output: [!]
+```
 
-## Applicability
+## When to Use the Pipeline Pattern in Java
 
 Use the Pipeline pattern when you want to
 
@@ -112,19 +131,20 @@ Use the Pipeline pattern when you want to
 * When each stage of processing is independent and can be easily replaced or reordered.
 * When you want to improve the scalability and maintainability of data processing code.
 
-## Tutorials
+## Pipeline Pattern Java Tutorials
 
-* [The Pipeline Pattern — for fun and profit](https://medium.com/@aaronweatherall/the-pipeline-pattern-for-fun-and-profit-9b5f43a98130)
-* [The Pipeline design pattern (in Java)](https://medium.com/@deepakbapat/the-pipeline-design-pattern-in-java-831d9ce2fe21)
+* [The Pipeline design pattern (in Java) (Medium)](https://medium.com/@deepakbapat/the-pipeline-design-pattern-in-java-831d9ce2fe21)
+* [The Pipeline Pattern — for fun and profit (Aaron Weatherall)](https://medium.com/@aaronweatherall/the-pipeline-pattern-for-fun-and-profit-9b5f43a98130)
+* [Pipelines (Microsoft)](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff963548(v=pandp.10))
 
-## Known Uses
+## Real-World Applications of Pipeline Pattern in Java
 
 * Data transformation and ETL (Extract, Transform, Load) processes.
 * Compilers for processing source code through various stages such as lexical analysis, syntax analysis, semantic analysis, and code generation.
 * Image processing applications where multiple filters are applied sequentially.
 * Logging frameworks where messages pass through multiple handlers for formatting, filtering, and output.
 
-## Consequences
+## Benefits and Trade-offs of Pipeline Pattern
 
 Benefits:
 
@@ -139,15 +159,14 @@ Trade-offs:
 * Performance Overhead: Each stage introduces some performance overhead due to context switching and data transfer between stages.
 * Debugging Difficulty: Debugging pipelines can be more challenging since the data flows through multiple components.
 
-## Related Patterns
+## Related Java Design Patterns
 
 * [Chain of Responsibility](https://java-design-patterns.com/patterns/chain-of-responsibility/): Both patterns involve passing data through a series of handlers, but in Chain of Responsibility, handlers can decide not to pass the data further.
 * [Decorator](https://java-design-patterns.com/patterns/decorator/): Both patterns involve adding behavior dynamically, but Decorator wraps additional behavior around objects, whereas Pipeline processes data in discrete steps.
 * [Composite](https://java-design-patterns.com/patterns/composite/): Like Pipeline, Composite also involves hierarchical processing, but Composite is more about part-whole hierarchies.
 
-## Credits
+## References and Credits
 
 * [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/3w0pvKI)
 * [Java Design Patterns: A Hands-On Experience with Real-World Examples](https://amzn.to/3yhh525)
 * [Patterns of Enterprise Application Architecture](https://amzn.to/3WfKBPR)
-* [Pipelines | Microsoft Docs](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff963548(v=pandp.10))

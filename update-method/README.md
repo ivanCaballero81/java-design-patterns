@@ -1,25 +1,27 @@
 ---
-title: Update Method
+title: "Update Method Pattern in Java: Enhancing Game Loop Efficiency with Systematic Updates"
+shortTitle: Update Method
+description: "Explore the Update Method design pattern for Java, ideal for real-time games and applications. Learn how it optimizes performance by updating objects frame-by-frame to maintain synchronized, efficient operations."
 category: Behavioral
 language: en
 tag:
-    - Abstraction
-    - Data processing
-    - Decoupling
-    - Event-driven
-    - Game programming
-    - Polymorphism
+  - Abstraction
+  - Data processing
+  - Decoupling
+  - Event-driven
+  - Game programming
+  - Polymorphism
 ---
 
 ## Also known as
 
 * Update Mechanism
 
-## Intent
+## Intent of Update Method Design Pattern
 
-Update method pattern simulates a collection of independent objects by telling each to process one frame of behavior at a time.
+The Update Method pattern in Java simulates a collection of independent objects by telling each to process one frame of behavior at a time.
 
-## Explanation
+## Detailed Explanation of Update Method Pattern with Real-World Examples
 
 Real-world example
 
@@ -33,9 +35,13 @@ gameprogrammingpatterns.com says
 
 > The game world maintains a collection of objects. Each object implements an update method that simulates one frame of the object’s behavior. Each frame, the game updates every object in the collection.
 
-**Programmatic Example**
+Sequence diagram
 
-The Update Method design pattern is a behavioral pattern that simulates a collection of independent objects by telling each to process one frame of behavior at a time. This pattern is commonly used in game development, where each object in the game world needs to be updated once per frame.
+![Update Method Sequence Diagram](./etc/update-method-sequence-diagram.png)
+
+## Programmatic Example of Update Method Pattern in Java
+
+The Update Method design pattern is a behavioral pattern that simulates a collection of independent game or application objects by telling each to process one frame of behavior at a time. This pattern is commonly used in game development, where each object in the game world needs to be updated once per frame.
 
 The `World` class represents the game world. It maintains a list of entities (`List<Entity> entities`) and a boolean flag (`isRunning`) to indicate whether the game is running.
 
@@ -49,7 +55,7 @@ public class World {
     entities = new ArrayList<>();
     isRunning = false;
   }
-  // ...
+  // Other properties and methods...
 }
 ```
 
@@ -124,37 +130,79 @@ public void addEntity(Entity entity) {
 In the `App` class, we can see how the `World` class and its methods are used to create a game world, add entities to it, and start the game loop.
 
 ```java
-var world = new World();
-var skeleton1 = new Skeleton(1, 10);
-var skeleton2 = new Skeleton(2, 70);
-var statue = new Statue(3, 20);
-world.addEntity(skeleton1);
-world.addEntity(skeleton2);
-world.addEntity(statue);
-world.run();
-Thread.sleep(GAME_RUNNING_TIME);
-world.stop();
+@Slf4j
+public class App {
+
+    private static final int GAME_RUNNING_TIME = 2000;
+
+    public static void main(String[] args) {
+        try {
+            var world = new World();
+            var skeleton1 = new Skeleton(1, 10);
+            var skeleton2 = new Skeleton(2, 70);
+            var statue = new Statue(3, 20);
+            world.addEntity(skeleton1);
+            world.addEntity(skeleton2);
+            world.addEntity(statue);
+            world.run();
+            Thread.sleep(GAME_RUNNING_TIME);
+            world.stop();
+        } catch (InterruptedException e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+}
+```
+
+Console output:
+
+```
+14:46:33.181 [main] INFO com.iluwatar.updatemethod.World -- Start game.
+14:46:33.280 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 11.
+14:46:33.281 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 71.
+14:46:33.452 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 12.
+14:46:33.452 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 72.
+14:46:33.621 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 13.
+14:46:33.621 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 73.
+14:46:33.793 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 14.
+14:46:33.793 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 74.
+14:46:33.885 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 15.
+14:46:33.885 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 75.
+14:46:34.113 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 16.
+14:46:34.113 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 76.
+14:46:34.324 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 17.
+14:46:34.324 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 77.
+14:46:34.574 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 18.
+14:46:34.575 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 78.
+14:46:34.730 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 19.
+14:46:34.731 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 79.
+14:46:34.803 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 20.
+14:46:34.803 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 80.
+14:46:34.979 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 21.
+14:46:34.979 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 81.
+14:46:35.045 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 22.
+14:46:35.046 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 82.
+14:46:35.187 [main] INFO com.iluwatar.updatemethod.World -- Stop game.
+14:46:35.288 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 1 is on position 23.
+14:46:35.289 [Thread-0] INFO com.iluwatar.updatemethod.Skeleton -- Skeleton 2 is on position 83.
 ```
 
 This is a basic implementation of the Update Method pattern. In a real-world application, the `Entity` class would likely have additional methods and properties, and the `update` method would contain more complex logic to simulate the entity's behavior.
 
-## Class diagram
-
-![Update Method](./etc/update-method.urm.png "Update Method pattern class diagram")
-
-## Applicability
+## When to Use the Update Method Pattern in Java
 
 Update Method works well when:
 
+* Typically applied in scenarios where multiple objects need synchronous updates without the overhead of manual synchronization, making it a go-to for advanced Java developers.
 * The application has a number of objects or systems that need to run simultaneously.
 * Each object’s behavior is mostly independent of the others.
 * The objects need to be simulated over time.
 
-## Known Uses
+## Real-World Applications of Update Method Pattern in Java
 
 * Real-time games and data processing applications where world objects need to be updated once per frame.
 
-## Consequences
+## Benefits and Trade-offs of Update Method Pattern
 
 Benefits:
 
@@ -168,12 +216,12 @@ Trade-offs:
 * The state needs to be stored to enable resuming updates after each frame
 * Entities are simulated each frame, but they are not truly concurrent
 
-## Related Patterns
+## Related Java Design Patterns
 
 * [Component](https://java-design-patterns.com/patterns/component/): Often used in game development to allow entities to be composed of various components, each potentially having its own update method.
 * [Game Loop](https://java-design-patterns.com/patterns/game-loop/): Continuously updates game state and renders the game, which may include the Update Method for various game objects.
 
-## Credits
+## References and Credits
 
 * [Game Programming Patterns](https://amzn.to/3wLTbvr)
 * [Game Programming Patterns - Update Method](http://gameprogrammingpatterns.com/update-method.html)

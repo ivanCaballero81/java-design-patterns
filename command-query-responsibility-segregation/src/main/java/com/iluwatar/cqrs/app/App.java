@@ -50,9 +50,10 @@ public class App {
    * @param args command line args
    */
   public static void main(String[] args) {
-    var commands = new CommandServiceImpl();
 
     // Create Authors and Books using CommandService
+    var commands = new CommandServiceImpl();
+
     commands.authorCreated(AppConstants.E_EVANS, "Eric Evans", "evans@email.com");
     commands.authorCreated(AppConstants.J_BLOCH, "Joshua Bloch", "jBloch@email.com");
     commands.authorCreated(AppConstants.M_FOWLER, "Martin Fowler", "mFowler@email.com");
@@ -61,14 +62,14 @@ public class App {
     commands.bookAddedToAuthor("Effective Java", 40.54, AppConstants.J_BLOCH);
     commands.bookAddedToAuthor("Java Puzzlers", 39.99, AppConstants.J_BLOCH);
     commands.bookAddedToAuthor("Java Concurrency in Practice", 29.40, AppConstants.J_BLOCH);
-    commands.bookAddedToAuthor("Patterns of Enterprise"
-        + " Application Architecture", 54.01, AppConstants.M_FOWLER);
+    commands.bookAddedToAuthor(
+        "Patterns of Enterprise" + " Application Architecture", 54.01, AppConstants.M_FOWLER);
     commands.bookAddedToAuthor("Domain Specific Languages", 48.89, AppConstants.M_FOWLER);
     commands.authorNameUpdated(AppConstants.E_EVANS, "Eric J. Evans");
 
+    // Query the database using QueryService
     var queries = new QueryServiceImpl();
 
-    // Query the database using QueryService
     var nullAuthor = queries.getAuthorByUsername("username");
     var evans = queries.getAuthorByUsername(AppConstants.E_EVANS);
     var blochBooksCount = queries.getAuthorBooksCount(AppConstants.J_BLOCH);
@@ -85,5 +86,4 @@ public class App {
 
     HibernateUtil.getSessionFactory().close();
   }
-
 }

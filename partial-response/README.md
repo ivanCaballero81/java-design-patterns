@@ -1,15 +1,17 @@
 ---
-title: Partial Response
+title: "Partial Response Pattern in Java: Optimizing Data Delivery for Efficient Web Services"
+shortTitle: Partial Response
+description: "Explore the Partial Response design pattern for APIs, a strategy to boost performance by allowing clients to process data as soon as it becomes available. Learn how it improves scalability and reduces server load."
 category: Behavioral
 language: en
 tag:
-    - API design
-    - Asynchronous
-    - Client-server
-    - Decoupling
-    - Performance
-    - Scalability
-    - Web development
+  - API design
+  - Asynchronous
+  - Client-server
+  - Decoupling
+  - Performance
+  - Scalability
+  - Web development
 ---
 
 ## Also known as
@@ -17,11 +19,11 @@ tag:
 * Incremental Response
 * Partial Result
 
-## Intent
+## Intent of Partial Response Design Pattern
 
 To enable an application to return a partial response to a client, improving perceived performance and enabling the client to start processing parts of the data before the entire response is available.
 
-## Explanation
+## Detailed Explanation of Partial Response Pattern with Real-World Examples
 
 Real-world example
 
@@ -31,7 +33,11 @@ In plain words
 
 > The Partial Response design pattern allows a system to send portions of data to the client as they become available, enabling the client to start processing the data before the complete response is received.
 
-**Programmatic Example**
+Sequence diagram
+
+![Partial Response sequence diagram](./etc/partial-response-sequence-diagram.png)
+
+## Programmatic Example of Partial Response Pattern in Java
 
 The Partial Response design pattern allows clients to specify which fields of a resource they need. This pattern is useful for reducing the amount of data transferred over the network and allowing clients to start processing data sooner.
 
@@ -84,7 +90,6 @@ public class FieldJsonMapper {
 - It splits the `fields` parameter into a set of field names, uses `FieldJsonMapper` to include only those fields in the response, and returns the partial JSON response.
 
 ```java
-
 @Path("/videos")
 public class VideoResource {
     @GET
@@ -119,14 +124,10 @@ public class VideoResource {
 - The server listens on `http://localhost:8080/`.
 
 ```java
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.simple.SimpleContainerFactory;
-
 public class App {
     public static void main(String[] args) {
         ResourceConfig config = new ResourceConfig();
         config.register(VideoResource.class);
-
         SimpleContainerFactory.create("http://localhost:8080/", config);
     }
 }
@@ -141,25 +142,23 @@ To summarize, in this example:
 
 By implementing the Partial Response design pattern, clients can request only the necessary data, enhancing performance and reducing bandwidth usage.
 
-## Class diagram
-
-![Partial Response](./etc/partial-response.urm.png "Partial Response")
-
-## Applicability
+## When to Use the Partial Response Pattern in Java
 
 Use the Partial Response pattern when
 
-* When the response data is large or takes a long time to process and transfer.
+* Utilize the Partial Response pattern when dealing with large data sets or APIs that require improved load time and performance.
 * When it’s beneficial for the client to begin processing the data as it arrives rather than waiting for the complete response.
 * In APIs where different clients might need different subsets of data, allowing them to specify what they need.
 
-## Known Uses
+## Real-World Applications of Partial Response Pattern in Java
+
+This pattern is widely adopted in
 
 * RESTful APIs allowing clients to specify fields they want using query parameters.
 * Streaming large datasets where initial parts of the data can be sent immediately (e.g., video streaming).
 * GraphQL queries where clients can request only specific fields to be returned.
 
-## Consequences
+## Benefits and Trade-offs of Partial Response Pattern
 
 Benefits:
 
@@ -173,15 +172,14 @@ Trade-offs:
 * Error Handling: May complicate error handling and recovery if only parts of the data are received correctly.
 * State Management: Requires careful management of state, especially if the partial responses are to be processed incrementally.
 
-## Related Patterns
+## Related Java Design Patterns
 
 * Asynchronous Messaging: Often used together with asynchronous messaging patterns to handle partial responses without blocking the client.
 * [Caching](https://java-design-patterns.com/patterns/caching/): Can be combined with caching patterns to store partial responses and avoid redundant data transfers.
 * [Proxy](https://java-design-patterns.com/patterns/proxy/): The proxy can intercept requests and manage partial responses, providing a buffer between the client and server.
 
-## Credits
+## References and Credits
 
 * [Building Microservices](https://amzn.to/3UACtrU)
 * [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems](https://amzn.to/4dKEwBa)
 * [RESTful Web APIs: Services for a Changing World](https://amzn.to/3wG4fu3)
-* [Google Cloud Common Design Patterns](https://cloud.google.com/apis/design/design_patterns)

@@ -1,13 +1,15 @@
 ---
-title: Promise
+title: "Promise Pattern in Java: Streamlining Async Tasks for Better Performance"
+shortTitle: Promise
+description: "Explore the Promise design pattern in Java, ideal for managing asynchronous operations efficiently. Learn how it enhances code readability and maintainability with practical examples and detailed explanations."
 category: Concurrency
 language: en
 tag:
-    - Asynchronous
-    - Decoupling
-    - Messaging
-    - Synchronization
-    - Thread management
+  - Asynchronous
+  - Decoupling
+  - Messaging
+  - Synchronization
+  - Thread management
 ---
 
 ## Also known as
@@ -15,11 +17,11 @@ tag:
 * Deferred
 * Future
 
-## Intent
+## Intent of Promise Design Pattern
 
 The Promise design pattern is used to handle asynchronous operations by providing a placeholder for a result that is initially unknown but will be resolved in the future.
 
-## Explanation
+## Detailed Explanation of Promise Pattern with Real-World Examples
 
 Real-world example
 
@@ -35,11 +37,15 @@ Wikipedia says
 
 > In computer science, future, promise, delay, and deferred refer to constructs used for synchronizing program execution in some concurrent programming languages. They describe an object that acts as a proxy for a result that is initially unknown, usually because the computation of its value is not yet complete.
 
-**Programmatic Example**
+Sequence diagram
+
+![Promise sequence diagram](./etc/promise-sequence-diagram.png)
+
+## Programmatic Example of Promise Pattern in Java
 
 The Promise design pattern is a software design pattern that's often used in concurrent programming to handle asynchronous operations. It represents a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason.
 
-In the provided code, the Promise design pattern is used to handle various asynchronous operations such as downloading a file, counting lines in a file, and calculating the character frequency in a file.
+In the provided example, a Promise is used to download files and perform operations like line counting and character frequency analysis asynchronously, showcasing the pattern's utility in practical applications.
 
 ```java
 @Slf4j
@@ -113,28 +119,37 @@ public class App {
 
 In this code, the `Promise` class is used to create promises for various operations. The `thenApply` method is used to chain promises, meaning that the result of one promise is used as the input for the next promise. The `thenAccept` method is used to handle the result of a promise. The `fulfillInAsync` method is used to fulfill a promise asynchronously, and the `onError` method is used to handle any errors that occur while fulfilling the promise.
 
-## Class diagram
+Program output:
 
-![Promise](./etc/promise.png "Promise")
+```
+08:19:33.036 [pool-1-thread-2] INFO com.iluwatar.promise.Utility -- Downloading contents from url: https://raw.githubusercontent.com/iluwatar/java-design-patterns/master/promise/README.md
+08:19:33.036 [pool-1-thread-1] INFO com.iluwatar.promise.Utility -- Downloading contents from url: https://raw.githubusercontent.com/iluwatar/java-design-patterns/master/promise/README.md
+08:19:33.419 [pool-1-thread-2] INFO com.iluwatar.promise.Utility -- File downloaded at: /var/folders/sg/9_st37nn5hq_bfhp8hw2dcrw0000gp/T/promise_pattern12403918065536844551.tmp
+08:19:33.419 [pool-1-thread-1] INFO com.iluwatar.promise.Utility -- File downloaded at: /var/folders/sg/9_st37nn5hq_bfhp8hw2dcrw0000gp/T/promise_pattern11215446820862558571.tmp
+08:19:33.419 [pool-1-thread-1] INFO com.iluwatar.promise.App -- Line count is: 164
+08:19:33.426 [pool-1-thread-2] INFO com.iluwatar.promise.App -- Char with lowest frequency is: ’
+```
 
-## Applicability
+## When to Use the Promise Pattern in Java
 
 * When you need to perform asynchronous tasks and handle their results or errors at a later point.
 * In scenarios where tasks can be executed in parallel and their outcomes need to be handled once they are completed.
 * Suitable for improving the readability and maintainability of asynchronous code.
 
-## Tutorials
+## Promise Pattern Java Tutorials
 
-* [Guide To CompletableFuture](https://www.baeldung.com/java-completablefuture)
+* [Functional-Style Callbacks Using Java 8's CompletableFuture (InfoQ)](https://www.infoq.com/articles/Functional-Style-Callbacks-Using-CompletableFuture)
+* [Guide To CompletableFuture (Baeldung)](https://www.baeldung.com/java-completablefuture)
+* [You are missing the point to Promises (Domenic Denicola)](https://gist.github.com/domenic/3889970)
 
-## Known Uses
+## Real-World Applications of Promise Pattern in Java
 
 * Java's CompletableFuture and Future classes.
 * JavaScript’s Promise object for managing asynchronous operations.
 * Many asynchronous frameworks and libraries such as RxJava and Vert.x.
 * [Guava ListenableFuture](https://github.com/google/guava/wiki/ListenableFutureExplained)
 
-## Consequences
+## Benefits and Trade-offs of Promise Pattern
 
 Benefits:
 
@@ -147,18 +162,15 @@ Trade-offs:
 * Complexity: Can add complexity to the codebase if overused or misused.
 * Debugging: Asynchronous code can be harder to debug compared to synchronous code due to the non-linear flow of execution.
 
-## Related Patterns
+## Related Java Design Patterns
 
 * [Observer](https://java-design-patterns.com/patterns/observer/): Promises can be used in conjunction with the Observer pattern to notify subscribers about the completion of asynchronous operations.
 * [Callback](https://java-design-patterns.com/patterns/callback/): Promises often replace callback mechanisms by providing a more structured and readable way to handle asynchronous results.
 * [Async Method Invocation](https://java-design-patterns.com/patterns/async-method-invocation/): Promises are often used to handle the results of asynchronous method invocations, allowing for non-blocking execution and result handling.
 
-## Credits
+## References and Credits
 
-* [You are missing the point to Promises](https://gist.github.com/domenic/3889970)
-* [Functional style callbacks using CompletableFuture](https://www.infoq.com/articles/Functional-Style-Callbacks-Using-CompletableFuture)
-* [Java 8 in Action: Lambdas, Streams, and functional-style programming](https://www.amazon.com/gp/product/1617291994/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=javadesignpat-20&creative=9325&linkCode=as2&creativeASIN=1617291994&linkId=995af46887bb7b65e6c788a23eaf7146)
-* [Modern Java in Action: Lambdas, streams, functional and reactive programming](https://www.amazon.com/gp/product/1617293563/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=javadesignpat-20&creative=9325&linkCode=as2&creativeASIN=1617293563&linkId=f70fe0d3e1efaff89554a6479c53759c)
-* [Java Concurrency in Practice](https://amzn.to/4aRMruW)
 * [Effective Java](https://amzn.to/4cGk2Jz)
 * [Java 8 in Action: Lambdas, Streams, and functional-style programming](https://amzn.to/3QCmGXs)
+* [Java Concurrency in Practice](https://amzn.to/4aRMruW)
+* [Modern Java in Action: Lambdas, streams, functional and reactive programming](https://amzn.to/3VhwetF)

@@ -1,11 +1,13 @@
 ---
-title: Serialized LOB
+title: "Serialized LOB Pattern in Java: Managing Large Data Objects with Ease"
+shortTitle: Serialized LOB
+description: "Explore the Serialized LOB pattern for managing large objects in Java applications. Learn how it simplifies data access and storage of files, multimedia, and large strings efficiently."
 category: Data access
 language: en
 tag:
-    - Data access
-    - Data processing
-    - Persistence
+  - Data access
+  - Data processing
+  - Persistence
 ---
 
 ## Also known as
@@ -14,21 +16,25 @@ tag:
 * Serialized BLOB
 * Serialized CLOB
 
-## Intent
+## Intent of Serialized LOB Design Pattern
 
-To manage and store large objects (LOBs) like files, images, or large strings in a database efficiently using serialization.
+Efficiently manage and store large data objects, such as multimedia files and extensive text strings, using the Serialized LOB pattern in Java, a strategy for robust database optimization.
 
-## Explanation
+## Detailed Explanation of Serialized LOB Pattern with Real-World Examples
 
 Real-world example
 
-> Consider a social media platform where users can upload and share images and videos. Instead of storing these large multimedia files on a separate file server, the platform uses the Serialized LOB design pattern to store the files directly in the database. Each uploaded image or video is serialized into a binary large object (BLOB) and stored within the user's record. This approach ensures that the multimedia files are managed within the same transactional context as other user data, providing consistency and simplifying data access and retrieval.
+> Imagine a social media platform optimized for performance, where users can upload and seamlessly share multimedia content, leveraging Java's Serialized LOB pattern for enhanced data handling. Instead of storing these large multimedia files on a separate file server, the platform uses the Serialized LOB design pattern to store the files directly in the database. Each uploaded image or video is serialized into a binary large object (BLOB) and stored within the user's record. This approach ensures that the multimedia files are managed within the same transactional context as other user data, providing consistency and simplifying data access and retrieval.
 
 In plain words
 
 > The Serialized LOB design pattern manages the storage of large objects, such as files or multimedia, by serializing and storing them directly within a database.
 
-**Programmatic Example**
+Flowchart
+
+![Serialized LOB flowchart](./etc/serialized-lob-flowchart.png)
+
+## Programmatic Example of Serialized LOB Pattern in Java
 
 The Serialized Large Object (LOB) design pattern is a way to handle large objects in a database. It involves serializing an object graph into a single large object (a BLOB or CLOB, for Binary Large Object or Character Large Object, respectively) and storing it in the database. When the object graph needs to be retrieved, it is read from the database and deserialized back into the original object graph.
 
@@ -80,37 +86,123 @@ public class BlobSerializer extends LobSerializer {
 
 The `BlobSerializer` class provides an implementation for serializing and deserializing objects into binary data. The `serialize` method converts a `Forest` object into binary data, and the `deSerialize` method converts binary data back into a `Forest` object.
 
+Finally, here is the `App` class with `main` method that can be used to execute the serialization example.
+
 ```java
-// The App class uses the LobSerializer to serialize and deserialize a Forest object.
 public class App {
-  // ... omitted for brevity
+
+  public static final String CLOB = "CLOB";
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
   public static void main(String[] args) throws SQLException {
     Forest forest = createForest();
     LobSerializer serializer = createLobSerializer(args);
     executeSerializer(forest, serializer);
   }
-  // ... omitted for brevity
+
+  private static LobSerializer createLobSerializer(String[] args) throws SQLException {
+    LobSerializer serializer;
+    if (args.length > 0 && Objects.equals(args[0], CLOB)) {
+      serializer = new ClobSerializer();
+    } else {
+      serializer = new BlobSerializer();
+    }
+    return serializer;
+  }
+
+  private static Forest createForest() {
+    Plant grass = new Plant("Grass", "Herb");
+    Plant oak = new Plant("Oak", "Tree");
+
+    Animal zebra = new Animal("Zebra", Set.of(grass), Collections.emptySet());
+    Animal buffalo = new Animal("Buffalo", Set.of(grass), Collections.emptySet());
+    Animal lion = new Animal("Lion", Collections.emptySet(), Set.of(zebra, buffalo));
+
+    return new Forest("Amazon", Set.of(lion, buffalo, zebra), Set.of(grass, oak));
+  }
+
+  private static void executeSerializer(Forest forest, LobSerializer lobSerializer) {
+    try (LobSerializer serializer = lobSerializer) {
+
+      Object serialized = serializer.serialize(forest);
+      int id = serializer.persistToDb(1, forest.getName(), serialized);
+
+      Object fromDb = serializer.loadFromDb(id, Forest.class.getSimpleName());
+      Forest forestFromDb = serializer.deSerialize(fromDb);
+
+      LOGGER.info(forestFromDb.toString());
+    } catch (SQLException | IOException | TransformerException | ParserConfigurationException
+             | SAXException
+             | ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }
 ```
 
-The `App` class uses the `LobSerializer` to serialize and deserialize a `Forest` object. The `main` method creates a `Forest` object, creates a `LobSerializer` (either a `ClobSerializer` or a `BlobSerializer`), and then uses the `LobSerializer` to serialize and deserialize the `Forest` object.
+Console output:
 
-## Class diagram
+```
+12:01:21.061 [main] INFO com.iluwatar.slob.App -- 
+Forest Name = Amazon
+Animals found in the Amazon Forest: 
 
-![Serialized LOB](./etc/slob.urm.png "Serialized LOB")
+--------------------------
 
-## Applicability
+Animal Name = Lion
+	Animals Eaten by Lion: 
+		
+Animal Name = Buffalo
+
+	Plants Eaten by Buffalo: 
+		Name = Grass,Type = Herb
+		
+Animal Name = Zebra
+
+	Plants Eaten by Zebra: 
+		Name = Grass,Type = Herb
+
+--------------------------
+
+--------------------------
+
+Animal Name = Buffalo
+
+	Plants Eaten by Buffalo: 
+		Name = Grass,Type = Herb
+--------------------------
+
+--------------------------
+
+Animal Name = Zebra
+
+	Plants Eaten by Zebra: 
+		Name = Grass,Type = Herb
+--------------------------
+
+Plants in the Amazon Forest: 
+
+--------------------------
+Name = Oak,Type = Tree
+--------------------------
+
+--------------------------
+Name = Grass,Type = Herb
+--------------------------
+```
+
+## When to Use the Serialized LOB Pattern in Java
 
 * Use when you need to store large objects in a database and want to optimize data access and storage.
 * Ideal for applications that deal with large binary or character data such as multimedia files, logs, or documents.
 
-## Known Uses
+## Real-World Applications of Serialized LOB Pattern in Java
 
 * Storing and retrieving images or multimedia files in a database.
 * Managing large text documents or logs in enterprise applications.
 * Handling binary data in applications that require efficient data retrieval and storage.
 
-## Consequences
+## Benefits and Trade-offs of Serialized LOB Pattern
 
 Benefits:
 
@@ -124,15 +216,15 @@ Trade-offs:
 * Potential performance overhead during serialization and deserialization.
 * Requires careful management of serialization format to maintain backward compatibility.
 
-## Related Patterns
+## Related Java Design Patterns
 
 * [DAO (Data Access Object)](https://java-design-patterns.com/patterns/dao/): Often used in conjunction with Serialized LOB to encapsulate data access logic.
 * Active Record: Can use Serialized LOB for managing large data within the same record.
 * [Repository](https://java-design-patterns.com/patterns/repository/): Uses Serialized LOB to handle complex queries and data manipulation involving large objects.
 
-## Credits
+## References and Credits
 
 * [Effective Java](https://amzn.to/4cGk2Jz)
 * [Java Persistence with Hibernate](https://amzn.to/44tP1ox)
 * [Patterns of Enterprise Application Architecture](https://amzn.to/3WfKBPR)
-* [Serialized LOB - Martin Fowler](https://martinfowler.com/eaaCatalog/serializedLOB.html) by Martin Fowler
+* [Serialized LOB (Martin Fowler)](https://martinfowler.com/eaaCatalog/serializedLOB.html)

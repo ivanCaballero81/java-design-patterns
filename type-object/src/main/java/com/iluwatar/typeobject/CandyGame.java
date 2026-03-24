@@ -33,11 +33,9 @@ import lombok.extern.slf4j.Slf4j;
  * The CandyGame class contains the rules for the continuation of the game and has the game matrix
  * (field 'cells') and totalPoints gained during the game.
  */
-
 @Slf4j
-@SuppressWarnings("java:S3776") //"Cognitive Complexity of methods should not be too high"
+@SuppressWarnings("java:S3776") // "Cognitive Complexity of methods should not be too high"
 public class CandyGame {
-
   Cell[][] cells;
   CellPool pool;
   int totalPoints;
@@ -66,8 +64,11 @@ public class CandyGame {
         var candyName = cell[j].candy.name;
         if (candyName.length() < 20) {
           var totalSpaces = 20 - candyName.length();
-          LOGGER.info(numOfSpaces(totalSpaces / 2) + cell[j].candy.name
-              + numOfSpaces(totalSpaces - totalSpaces / 2) + "|");
+          LOGGER.info(
+              numOfSpaces(totalSpaces / 2)
+                  + cell[j].candy.name
+                  + numOfSpaces(totalSpaces - totalSpaces / 2)
+                  + "|");
         } else {
           LOGGER.info(candyName + "|");
         }
@@ -85,17 +86,19 @@ public class CandyGame {
     if (x == 0) {
       adjacent.add(this.cells[y][1]);
     }
-    if (y == cells.length - 1) {
+    if (y == cells.length - 1 && cells.length > 1) {
       adjacent.add(this.cells[cells.length - 2][x]);
     }
-    if (x == cells.length - 1) {
+
+    if (x == cells.length - 1 && cells.length > 1) {
       adjacent.add(this.cells[y][cells.length - 2]);
     }
+
     if (y > 0 && y < cells.length - 1) {
       adjacent.add(this.cells[y - 1][x]);
       adjacent.add(this.cells[y + 1][x]);
     }
-    if (x > 0 && x < cells.length - 1) {
+    if (y >= 0 && y < cells.length && x > 0 && x < cells[y].length - 1) {
       adjacent.add(this.cells[y][x - 1]);
       adjacent.add(this.cells[y][x + 1]);
     }
@@ -169,5 +172,4 @@ public class CandyGame {
       end = System.currentTimeMillis();
     }
   }
-
 }
